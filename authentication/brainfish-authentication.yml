@@ -1,0 +1,45 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/brainfish-public-api-openapi-original.json
+docs: https://docs.brainfi.sh/api-reference
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: API Token
+  description: |-
+    Bearer token authentication. Include your API token in the Authorization header.
+
+    Example: `Authorization: Bearer [example key]`
+
+    Create tokens in your Brainfish dashboard under Settings → API Tokens.
+  sources:
+  - openapi/brainfish-public-api-openapi-original.json
+- name: AccessToken
+  type: apiKey
+  in: header
+  parameter: access-token
+  description: |-
+    **Deprecated**: Use Bearer authentication instead.
+
+    Legacy access token header for backward compatibility. Must start with `bf_api_`.
+
+    Create tokens in your Brainfish dashboard under Settings → API Tokens.
+  sources:
+  - openapi/brainfish-public-api-openapi-original.json
+- name: AgentKey
+  type: apiKey
+  in: header
+  parameter: agent-key
+  description: |-
+    Agent key identifier that specifies which AI agent/widget to use for the request.
+
+    Find agent keys in your Brainfish dashboard under Agents. Click on any agent key to copy it.
+  sources:
+  - openapi/brainfish-public-api-openapi-original.json

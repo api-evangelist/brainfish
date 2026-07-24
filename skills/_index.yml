@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/brainfish-public-api-openapi-original.json
+skills:
+  - file: brainfish-manage-knowledge-base.md
+    name: Manage a Brainfish knowledge base
+    api: openapi/brainfish-public-api-openapi-original.json
+    operations: [validateToken, createCollection, createDocument, updateDocument, moveDocument, searchDocuments]
+  - file: brainfish-generate-ai-answer.md
+    name: Generate an AI answer with Brainfish
+    api: openapi/brainfish-public-api-openapi-original.json
+    operations: [generateUserAnswer, generateAnswer, generateFollowUpQuestions]
+  - file: brainfish-sync-api-catalog.md
+    name: Sync an API catalog into Brainfish
+    api: openapi/brainfish-public-api-openapi-original.json
+    operations: [validateToken, createCatalog, syncCatalogContent, getCatalog, listCatalogs]

@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.brainfi.sh/api-reference
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://docs.brainfi.sh/api-reference
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No formal deprecation/Sunset (RFC 8594) policy is published. One in-spec
+    deprecation exists: the AccessToken (access-token header) security scheme is
+    marked deprecated in favor of Bearer authentication.
+  deprecated_features:
+    - AccessToken security scheme (access-token header) -> use BearerAuth
+status_page: https://status.brainfi.sh
+changelog: https://www.brainfishai.com/changelog
+sla:
+  url: https://trust.brainfi.sh/
+  uptime_target: null
+deprecated_operations: []

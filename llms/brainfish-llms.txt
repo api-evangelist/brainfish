@@ -1,0 +1,72 @@
+# Brainfish
+
+> Brainfish is AI product support agents for B2B SaaS. Resolve tickets across every channel, ground every answer in your real product knowledge, and never train on customer data. Built in Sydney, deployed globally.
+
+## Core pages
+
+- [Homepage](https://www.brainfishai.com/): Brand, hero, and outcome summary.
+- [Product](https://www.brainfishai.com/product): What Brainfish does and how the agent works.
+- [Pricing](https://www.brainfishai.com/pricing): Platform tier + add-ons + custom programs.
+- [Ask Brainfish](https://www.brainfishai.com/ask): Internal copilot for support teams (chat in Slack / Teams / Chrome).
+- [Book a demo](https://www.brainfishai.com/book-a-demo): Live walkthrough on your own data.
+- [About](https://www.brainfishai.com/about): Company background, founding team, mission.
+
+## Customer outcomes
+
+- [Huntress: Preventing 50% of monthly support tickets with a rapidly scaling customer base.](https://www.brainfishai.com/customers/preventing-50-of-monthly-support-tickets-with-a-rapidly-scaling-customer-base)
+- [ChangeEngine: 60% of ops time reclaimed and 1 in 4 customers self-serving](https://www.brainfishai.com/customers/how-changeengine-reclaimed-60-of-ops-time-and-got-1-in-4-customers-self-serving)
+- [Coassemble: Doubled qualified leads and cleared the overnight queue](https://www.brainfishai.com/customers/how-coassemble-doubled-qualified-leads-and-cleared-the-overnight-ticket-queue)
+- [Kloud Connect: 300+ hours saved with an in-app knowledge layer](https://www.brainfishai.com/customers/kloud-connect-saves-300-hours-and-scales-support-with-an-in-app-knowledge-layer)
+- [Vrio: 80% of developer questions resolved automatically](https://www.brainfishai.com/customers/how-vrio-scaled-technical-support-without-slowing-down-engineering)
+- [Gradeo: Scaled proactive exam support without adding headcount](https://www.brainfishai.com/customers/how-gradeo-scaled-proactive-exam-support-without-increasing-headcount)
+- [Smokeball: Search-to-tickets cut by 74%, Support NPS up 17 points](https://www.brainfishai.com/customers/how-smokeball-reduced-search-to-tickets-by-74-and-boosted-nps-by-37)
+- [CareMaster: Self-service from 30% to 76% with no team growth](https://www.brainfishai.com/customers/transforming-cx-with-ambient-ai-agents)
+- [Smokeball: Self-serve to human rate cut by more than 50%](https://www.brainfishai.com/customers/smokeball-cut-its-self-serve-to-human-rate-by-over-50)
+- [Circular: 20% of weekly support hours saved](https://www.brainfishai.com/customers/circular-saved-20-of-team-support-hours-per-week)
+
+## Featured writing
+
+- [The Real Cost of Outdated Documentation in SaaS](https://www.brainfishai.com/blog/the-real-cost-of-outdated-documentation-in-saas): Outdated documentation isn't just an inconvenience — it's a compounding cost center. Here's how to quantify what stale content is actually costing your SaaS business, and what to do about it.
+- [Introducing Brainfish for Microsoft Teams](https://www.brainfishai.com/blog/introducing-brainfish-for-microsoft-teams): Brainfish for Microsoft Teams is live. @mention the bot in any channel, get a sourced answer in seconds. The Slack pattern, now native to Teams.
+- [Build vs. Buy: An AI Knowledge Layer Decision Framework](https://www.brainfishai.com/blog/build-vs-buy-an-ai-knowledge-layer): Should you build your own AI knowledge layer or buy one? A 2026 decision framework covering cost, time, risk, and the work most build estimates miss.
+- [MCP for Customer Support: The Ultimate 2026 Guide](https://www.brainfishai.com/blog/mcp-for-customer-support-the-ultimate-2026-guide): What MCP means for CX, what to do with it in your first 30 days, and how to make Claude an operator on your knowledge not just a chatbot. From the team at Brainfish.
+- [AI Customer Support: The 2026 Guide for B2B SaaS Teams](https://www.brainfishai.com/blog/ai-customer-support)
+- [Introducing Brainfish Live Agent Handoff for Zendesk](https://www.brainfishai.com/blog/live-agent-handoff-zendesk): Brainfish Live Agent Handoff for Zendesk transfers the full AI conversation to a human agent in the same window. No re-explaining. No starting blind.
+- [The Complete Guide to Brainfish + Zendesk 2026](https://www.brainfishai.com/blog/complete-guide-brainfish-zendesk-2026): The 2026 guide to running Brainfish alongside Zendesk. Architecture, integration points, Live Agent Handoff, agent assist, content ops, customer proof.
+- [The Dead-End Handoff: Why Most AI Support Tools Still Drop the Customer](https://www.brainfishai.com/blog/the-dead-end-handoff-why-most-ai-support-tools-still-drop-the-customer): Most AI support tools dead-end the customer when they cannot resolve. The handoff is the most damaged moment in the conversation. It does not have to be.
+- [The 5 Components of a Real AI Knowledge Layer](https://www.brainfishai.com/blog/5-components-ai-knowledge-layer): A real AI knowledge layer is five components, not a chatbot. Sources, ingestion, content operations, observable retrieval, and multi-surface serving.
+- [The AI Knowledge Layer Buyer's Guide for Heads of Support](https://www.brainfishai.com/blog/ai-knowledge-layer-buyers-guide-heads-of-support): An AI knowledge layer buyer's guide written for the CX leader. Eight evaluation criteria, the traps to avoid, and how to score vendors against deflection and CSAT.
+- [Inside the 5%: How Three Companies Made Their AI Pilots Actually Deliver ROI](https://www.brainfishai.com/blog/inside-the-5-how-three-companies-made-their-ai-pilots-actually-deliver-roi): Why do 95% of AI pilots fail to show ROI? Three case studies show the 5% that win: unified knowledge, context by cohort, and measurable support automation.
+- [April Launch Round-Up: Brainfish Works Where Your Team Works](https://www.brainfishai.com/blog/april-launch-round-up-brainfish-works-where-your-team-works)
+
+## Webinars (on demand)
+
+- [6 Weeks to 6 Minutes: The Real Cost of Resolving Complex Tickets by Hand](https://www.brainfishai.com/webinars/the-real-cost-of-resolving-complex-tickets-by-hand): Watch complex, cross-system tickets resolve themselves with no agent touching them and learn what it takes to break past the 30% ceiling.
+- [What AI Support Actually Looks Like When It Works](https://www.brainfishai.com/webinars/what-ai-support-actually-looks-like-when-it-works): Most AI support deployments fail at the knowledge layer, not the model. This session shows the architecture that fixes it, from three teams that built it.
+- [The Modern Sales Enablement Engine: How AI Is Replacing the Playbook. ](https://www.brainfishai.com/webinars/the-modern-enablement-engine-trusted-knowledge-at-the-moment-of-need): AI adoption in sales has doubled in two years. The teams pulling ahead aren't just buying tools, they're building the knowledge layer that makes AI actually work.
+- [Customer Innovation Day: Brainfish for Internal Productivity](https://www.brainfishai.com/webinars/q3-customer-innovation): What’s new, what’s improved, and how teams are using Brainfish to work smarter together.
+- [From Hallucinations to Certainty: The Missing Knowledge Layer for AI](https://www.brainfishai.com/webinars/from-hallucinations-to-certainty): Learn how to ground AI in Real Product Knowledge and eliminate hallucinations.
+
+## Integrations
+
+- [API / Custom](https://www.brainfishai.com/integrations/api-custom): Contact our team to integrate with a software platform not listed. We have a habit of building custom integrations as needed.
+- [BigCommerce](https://www.brainfishai.com/integrations/bigcommerce): Answer questions about orders, user information and more, using API Actions.
+- [Chorus.ai](https://www.brainfishai.com/integrations/chorus): Turn sales and support call recordings from Chorus into a living knowledge source.
+- [Claude (MCP)](https://www.brainfishai.com/integrations/claude-mcp): Connect your Brainfish knowledge base to Claude. Search, draft, audit, and update your help center content without ever leaving your AI assistant.
+- [Confluence](https://www.brainfishai.com/integrations/confluence): Get started in minutes using existing content from Confluence, so your AI agent can immediately start resolving customer inquiries.
+- [Freshworks](https://www.brainfishai.com/integrations/freshworks-0nsuo): Integrate Brainfish with the entire Freshworks suite. Connect your knowledge base and route conversations to human agents over chat, email, and phone.
+- [Google Drive](https://www.brainfishai.com/integrations/google-drive): Connect Slides, Sheets, Docs, or PDFs from Google Drive as knowledge sources.
+- [Guru](https://www.brainfishai.com/integrations/guru): Get started in minutes using existing content from Guru, so your AI agent can immediately start resolving customer inquiries.
+- [Help Scout](https://www.brainfishai.com/integrations/help-scout): Integrate with the entire Help Scout suite. Connect your knowledge base and route conversations to human agents over email and messaging channels.
+- [Helpjuice](https://www.brainfishai.com/integrations/helpjuice): Connect existing content from Helpjuice, so your AI agent can draw from content wherever to solve problems.
+- [Hubspot](https://www.brainfishai.com/integrations/hubspot): Answer questions through AI Actions via the Hubspot API to use specific CRM record details, or hand off to Messaging/Ticketing.
+- [Intercom](https://www.brainfishai.com/integrations/intercom): Integrate Brainfish with the Intercom messenger. Dynamically route conversations to human agents over chat, email, and phone.
+
+## Optional
+
+- [Blog index](https://www.brainfishai.com/blog): All long-form writing.
+- [Customer stories index](https://www.brainfishai.com/customers): All case studies.
+- [Changelog](https://www.brainfishai.com/changelog): Product release log.
+- [Integrations index](https://www.brainfishai.com/integrations): Every supported integration.
+- [Webinars](https://www.brainfishai.com/webinars): Live + on-demand sessions.
+- [Trust](https://trust.brainfi.sh): Security, compliance, and uptime.

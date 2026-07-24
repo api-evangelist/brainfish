@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Brainfish Public API
+  version: 1.0.0
+extends: openapi/brainfish-public-api-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-apievangelist-notes: >-
+        Well-structured OpenAPI 3.0.3, 27 tagged operations, custom error envelope
+        (not RFC 9457), offset pagination, documented rate limits with X-RateLimit
+        headers, SSE streaming on answer generation. No idempotency contract and no
+        webhook/event surface.
+  - target: $.info
+    update:
+      x-apievangelist-artifacts:
+        authentication: authentication/brainfish-authentication.yml
+        conventions: conventions/brainfish-conventions.yml
+        errors: errors/brainfish-problem-types.yml
+        rate_limits: rate-limits/brainfish-rate-limits.yml
+        data_model: data-model/brainfish-data-model.yml
+        mcp: mcp/brainfish-mcp.yml
+        lifecycle: lifecycle/brainfish-lifecycle.yml
+  - target: $.info
+    update:
+      x-agentic-access-profile: agentic-access/brainfish-agentic-access.yml

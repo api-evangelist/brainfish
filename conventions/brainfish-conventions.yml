@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.brainfi.sh/api-reference
+authentication:
+  style: bearer
+  header: Authorization
+  token_format: bf_api_
+  agent_key_header: agent-key
+  deprecated: access-token header (legacy AccessToken scheme)
+  see: authentication/brainfish-authentication.yml
+base_url: https://api.brainfi.sh
+transport:
+  https_only: true
+  media_type: application/json
+  streaming: text/event-stream (SSE) for AI answer generation (generateAnswer, generateUserAnswer)
+idempotency:
+  supported: false
+  note: No idempotency-key header/param is documented or present in the OpenAPI.
+pagination:
+  style: offset
+  params: [limit, offset]
+  sorting: [sort, direction]
+  note: List endpoints (e.g. GET /v1/documents) use limit/offset with sort + direction.
+request_tracing:
+  field: requestId
+  location: error response body
+  note: >-
+    Every error envelope carries a requestId that can be supplied to Brainfish
+    support for troubleshooting.
+versioning:
+  style: uri-path
+  current: v1
+  see: lifecycle/brainfish-lifecycle.yml
+error_envelope:
+  media_type: application/json
+  shape: '{ error, message, details, timestamp, requestId }'
+  format: custom
+  rfc9457: false
+  see: errors/brainfish-problem-types.yml
+rate_limiting:
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  exceeded_status: 429
+  see: rate-limits/brainfish-rate-limits.yml

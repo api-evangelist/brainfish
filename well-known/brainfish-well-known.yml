@@ -1,0 +1,53 @@
+generated: '2026-07-18'
+method: searched
+note: >-
+  The only genuine /.well-known documents are served by the MCP host mcp.brainfi.sh
+  (OAuth 2.1 authorization-server + protected-resource metadata for the remote MCP
+  server). app.brainfi.sh returns HTTP 200 for every /.well-known path but the body
+  is the SPA index (text/html) — a soft-404, not a real discovery document — so those
+  are recorded as not-a-document. api.brainfi.sh and brainfishai.com serve none.
+hosts:
+  - host: https://mcp.brainfi.sh
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: brainfish-mcp-oauth-authorization-server.json
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: application/json
+        file: brainfish-mcp-oauth-protected-resource.json
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+  - host: https://app.brainfi.sh
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/html
+        note: SPA index (soft-404), not a real security.txt
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: text/html
+        note: SPA index (soft-404), not real OIDC metadata
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: text/html
+        note: SPA index (soft-404)
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: text/html
+        note: SPA index (soft-404)
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        content_type: text/html
+        note: SPA index (soft-404)
+  - host: https://api.brainfi.sh
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404

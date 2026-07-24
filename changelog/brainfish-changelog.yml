@@ -1,0 +1,26 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.brainfishai.com/changelog
+scheme: date-based
+note: >-
+  Brainfish publishes a date-based product changelog (no semantic version numbers).
+  Entries are tagged New / Improved / Deprecated. Product changelog, not an API
+  version log; the REST API is versioned via the /v1 URI path.
+current_version: v1
+entries:
+  - date: '2026-05-05'
+    title: Your knowledge base, working in every tool your team already uses
+    type: improved
+    highlights: Integration improvements across Claude (MCP), Microsoft Teams, and Zendesk.
+  - date: '2026-03-24'
+    title: 'UI Refresh: cleaner layout, smarter navigation'
+    type: improved
+  - date: '2026-03-19'
+    title: Upload images to add visual context to questions
+    type: new
+  - date: '2026-02-28'
+    title: Create knowledge directly from Slack and give your agents identities
+    type: new
+  - date: '2026-01-26'
+    title: 'Major platform updates: Brainfish Assist, Slack Agents, Help Center AI'
+    type: new

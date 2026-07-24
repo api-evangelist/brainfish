@@ -1,27 +1,417 @@
 aid: brainfish
 name: Brainfish
-description: 'Brainfish is a company surfaced as a portfolio company of prosus-ventures and added to the
-  API Evangelist network as a stub for enrichment. Sector: ai. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: >-
+  Brainfish is an AI product-support platform for B2B SaaS companies, built in Sydney
+  and deployed globally with US/EU/AU data residency. Its AI support agents resolve
+  customer tickets across chat, email, in-product, Slack and Teams, grounding every
+  answer in the company's real product knowledge rather than training on customer
+  data. Brainfish exposes a REST Public API (https://api.brainfi.sh) to
+  programmatically manage the knowledge base (collections, documents, catalogs),
+  generate cited AI answers and follow-up questions, and pull session analytics,
+  plus a remote Model Context Protocol (MCP) server and an embeddable browser widget
+  suite. Backed by Prosus Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/brainfish/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - prosus-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-public-api
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://www.brainfishai.com/og-default.png
 tags:
 - Company
-- Ai
-apis: []
+- AI
+- Customer Support
+- Knowledge Base
+- Help Desk
+- Agents
+- Support Automation
+- SaaS
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: brainfish:brainfish-agents-api
+  name: Brainfish Agents API
+  description: AI agent operations for answer generation and streaming
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-agents-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
+- aid: brainfish:brainfish-analytics-api
+  name: Brainfish Analytics API
+  description: Conversation thread analytics with filtering and pagination
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-analytics-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
+- aid: brainfish:brainfish-authentication-api
+  name: Brainfish Authentication API
+  description: Authentication and token validation operations
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-authentication-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
+- aid: brainfish:brainfish-catalogs-api
+  name: Brainfish Catalogs API
+  description: >-
+    Catalog management operations. Create catalogs and sync content programmatically via the API.
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Catalogs
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-catalogs-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
+- aid: brainfish:brainfish-collections-api
+  name: Brainfish Collections API
+  description: Collection management operations including create, read, update, list, and delete
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-collections-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
+- aid: brainfish:brainfish-conversations-api
+  name: Brainfish Conversations API
+  description: Conversation operations including follow-up question generation
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-conversations-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
+- aid: brainfish:brainfish-documents-api
+  name: Brainfish Documents API
+  description: Document management operations including create, read, update, list, and delete
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-documents-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
+- aid: brainfish:brainfish-sessions-api
+  name: Brainfish Sessions API
+  description: >-
+    Chat session search, detail, timeline, and AI-powered insights. A "session" is a chat conversation
+    keyed by conversationId.
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-sessions-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
+- aid: brainfish:brainfish-users-api
+  name: Brainfish Users API
+  description: >-
+    User-scoped operations. Generate answers personalized to a specific external/platform user with automatic
+    attribute-based collection filtering.
+  humanURL: https://docs.brainfi.sh/api-reference
+  baseURL: https://api.brainfi.sh
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/brainfish-users-api-openapi.yml
+  - type: APIReference
+    url: https://docs.brainfi.sh/api-reference
+  - type: Authentication
+    url: authentication/brainfish-authentication.yml
+  - type: Conventions
+    url: conventions/brainfish-conventions.yml
+  - type: Idempotency
+    url: conventions/brainfish-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brainfish-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/brainfish-rate-limits.yml
+  - type: DataModel
+    url: data-model/brainfish-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/brainfish-agentic-access.yml
+  - type: Conformance
+    url: conformance/brainfish-conformance.yml
+  - type: Arazzo
+    url: arazzo/brainfish-create-collection-and-document.yml
+  - type: Arazzo
+    url: arazzo/brainfish-answer-and-followups.yml
+  - type: Arazzo
+    url: arazzo/brainfish-catalog-sync.yml
 common:
+- type: DeveloperPortal
+  url: https://docs.brainfi.sh
+- type: Documentation
+  url: https://docs.brainfi.sh
+- type: APIReference
+  url: https://docs.brainfi.sh/api-reference
+- type: GettingStarted
+  url: https://help.brainfi.sh
+- type: Support
+  url: https://help.brainfi.sh
+- type: MCPServer
+  url: mcp/brainfish-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Packages
+  url: packages/brainfish-packages.yml
+- type: SDKs
+  url: packages/brainfish-packages.yml
+- type: Components
+  url: components/brainfish-components.yml
+- type: WellKnown
+  url: well-known/brainfish-well-known.yml
+- type: LLMsTxt
+  url: llms/brainfish-llms.txt
+- type: ChangeLog
+  url: changelog/brainfish-changelog.yml
+- type: Lifecycle
+  url: lifecycle/brainfish-lifecycle.yml
+- type: StatusPage
+  url: https://status.brainfi.sh
+- type: TrustCenter
+  url: security/brainfish-trust-center.yml
+- type: Compliance
+  url: https://trust.brainfi.sh/
+- type: DomainSecurity
+  url: security/brainfish-domain-security.yml
+- type: GitHubOrganization
+  url: https://github.com/brainfish-ai
+- type: Blog
+  url: https://www.brainfishai.com/blog
+- type: Pricing
+  url: https://www.brainfishai.com/pricing
+- type: SignUp
+  url: https://app.brainfi.sh
+- type: TermsOfService
+  url: https://www.brainfishai.com/terms
+- type: PrivacyPolicy
+  url: https://www.brainfishai.com/privacy-policy
 - type: Website
-  url: https://brainfishai.com
+  url: https://www.brainfishai.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

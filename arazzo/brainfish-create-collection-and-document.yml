@@ -1,0 +1,48 @@
+arazzo: 1.0.1
+info:
+  title: Create a collection and add a document
+  version: 1.0.0
+  summary: Validate the token, create a knowledge-base collection, then create a document inside it.
+sourceDescriptions:
+  - name: brainfish
+    url: ../openapi/brainfish-public-api-openapi-original.json
+    type: openapi
+workflows:
+  - workflowId: create-collection-and-document
+    summary: Create a collection and a document within it.
+    inputs:
+      type: object
+      properties:
+        collectionName: { type: string }
+        documentTitle: { type: string }
+        documentContent: { type: string }
+    steps:
+      - stepId: validate
+        operationId: validateToken
+        successCriteria:
+          - condition: $statusCode == 200
+      - stepId: createCollection
+        operationId: createCollection
+        requestBody:
+          contentType: application/json
+          payload:
+            name: $inputs.collectionName
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          collectionId: $response.body#/id
+      - stepId: createDocument
+        operationId: createDocument
+        requestBody:
+          contentType: application/json
+          payload:
+            title: $inputs.documentTitle
+            content: $inputs.documentContent
+            collectionId: $steps.createCollection.outputs.collectionId
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          documentId: $response.body#/id
+    outputs:
+      collectionId: $steps.createCollection.outputs.collectionId
+      documentId: $steps.createDocument.outputs.documentId

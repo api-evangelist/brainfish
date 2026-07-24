@@ -1,0 +1,75 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/brainfish-public-api-openapi-original.json
+format: custom
+note: Brainfish uses a custom JSON error envelope (error, message, details, timestamp,
+  requestId) — not RFC 9457 application/problem+json. requestId can be given to support
+  for troubleshooting.
+envelope:
+  media_type: application/json
+  required:
+  - error
+  - message
+  fields:
+  - error
+  - message
+  - details
+  - timestamp
+  - requestId
+problems:
+- status: 401
+  title: Unauthorized
+  error_envelope: application/json {error, message, details, timestamp, requestId}
+  occurrences: 27
+  example_operations:
+  - createCatalog
+  - createCollection
+  - createDocument
+  - deleteCollection
+  - deleteDocument
+- status: 404
+  title: Not found
+  error_envelope: application/json {error, message, details, timestamp, requestId}
+  occurrences: 14
+  example_operations:
+  - deleteCollection
+  - deleteDocument
+  - generateArticleSuggestion
+  - generateFollowUpQuestions
+  - generateSessionInsights
+- status: 409
+  title: Conflict
+  error_envelope: application/json {error, message, details, timestamp, requestId}
+  occurrences: 1
+  example_operations:
+  - generateArticleSuggestion
+- status: 422
+  title: Validation failed
+  error_envelope: application/json {error, message, details, timestamp, requestId}
+  occurrences: 14
+  example_operations:
+  - createCatalog
+  - createCollection
+  - createDocument
+  - deleteCollection
+  - generateAnswer
+- status: 429
+  title: Too many requests
+  error_envelope: application/json {error, message, details, timestamp, requestId}
+  occurrences: 27
+  example_operations:
+  - createCatalog
+  - createCollection
+  - createDocument
+  - deleteCollection
+  - deleteDocument
+- status: 500
+  title: Internal server error
+  error_envelope: application/json {error, message, details, timestamp, requestId}
+  occurrences: 23
+  example_operations:
+  - createCatalog
+  - createCollection
+  - createDocument
+  - deleteCollection
+  - deleteDocument

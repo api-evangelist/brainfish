@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/brainfish-public-api-openapi-original.json
+workflows:
+  - file: brainfish-create-collection-and-document.yml
+    workflowId: create-collection-and-document
+    title: Create a collection and add a document
+    summary: Validate the token, create a knowledge-base collection, then create a document inside it.
+  - file: brainfish-answer-and-followups.yml
+    workflowId: answer-and-followups
+    title: Generate an answer and follow-up questions
+    summary: Generate a cited AI answer for an end-user question, then generate suggested follow-up questions.
+  - file: brainfish-catalog-sync.yml
+    workflowId: catalog-sync
+    title: Create and sync an API catalog
+    summary: Create a catalog, sync content into it, then read back its status.

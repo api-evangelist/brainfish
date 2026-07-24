@@ -1,0 +1,53 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.npmjs.com/org/brainfish-ai
+note: >-
+  Brainfish's primary developer surface is a suite of embeddable, framework-agnostic
+  browser widgets (search, help, chat, nudge, product-tour) plus a shared components
+  library. These are client-side UI components distinct from the REST API and are
+  published under the official @brainfish-ai npm scope.
+families:
+  - family: Widgets
+    description: Embeddable end-user support surfaces dropped into any web app.
+    loaders:
+      - "@brainfish-ai/web-widget"
+      - "@brainfish-ai/widgets-initiator"
+    components:
+      - name: Search Widget
+        package: "@brainfish-ai/search-widget"
+        url: https://www.npmjs.com/package/@brainfish-ai/search-widget
+        description: Help + instant-answer search widget embeddable on any website.
+      - name: Help Widget
+        package: "@brainfish-ai/help-widget"
+        url: https://www.npmjs.com/package/@brainfish-ai/help-widget
+        description: In-product help widget surfacing knowledge-base answers.
+      - name: Chat Widget (React)
+        package: "@brainfish-ai/react-chat-widget"
+        url: https://www.npmjs.com/package/@brainfish-ai/react-chat-widget
+        description: React library to render the Brainfish chat widget on a site.
+      - name: Agent Chat Widget
+        package: "@brainfish-ai/agent-chat-widget"
+        url: https://www.npmjs.com/package/@brainfish-ai/agent-chat-widget
+        description: AI-agent chat surface for in-product support.
+      - name: Nudge Widget
+        package: "@brainfish-ai/nudge-widget"
+        url: https://www.npmjs.com/package/@brainfish-ai/nudge-widget
+        description: SolidJS nudge/notification widget for pushing updates to users.
+  - family: Product tours
+    description: Guided in-app onboarding and product-tour overlays.
+    components:
+      - name: Wayfinder
+        package: "@brainfish-ai/wayfinder-core"
+        url: https://www.npmjs.com/package/@brainfish-ai/wayfinder-core
+        description: Framework-agnostic product-tour library with spotlight overlay and analytics hooks.
+  - family: Authoring
+    description: Content authoring UI used across Brainfish surfaces.
+    components:
+      - name: Editor
+        package: "@brainfish-ai/editor"
+        url: https://www.npmjs.com/package/@brainfish-ai/editor
+        description: Milkdown-based markdown/WYSIWYG editor for knowledge-base content.
+      - name: Components
+        package: "@brainfish-ai/components"
+        url: https://www.npmjs.com/package/@brainfish-ai/components
+        description: Shared Brainfish UI component library.

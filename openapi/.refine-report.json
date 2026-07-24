@@ -1,0 +1,32 @@
+{
+  "provider": "brainfish",
+  "sources": [
+    "brainfish-agents-api-openapi.yml",
+    "brainfish-analytics-api-openapi.yml",
+    "brainfish-authentication-api-openapi.yml",
+    "brainfish-catalogs-api-openapi.yml",
+    "brainfish-collections-api-openapi.yml",
+    "brainfish-conversations-api-openapi.yml",
+    "brainfish-documents-api-openapi.yml",
+    "brainfish-sessions-api-openapi.yml",
+    "brainfish-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "brainfish-agents-api-openapi.yml",
+    "brainfish-analytics-api-openapi.yml",
+    "brainfish-authentication-api-openapi.yml",
+    "brainfish-catalogs-api-openapi.yml",
+    "brainfish-collections-api-openapi.yml",
+    "brainfish-conversations-api-openapi.yml",
+    "brainfish-documents-api-openapi.yml",
+    "brainfish-sessions-api-openapi.yml",
+    "brainfish-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "brainfish-documents-api-openapi.yml: dangling $ref: #/components/schemas/CollectionListItem"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

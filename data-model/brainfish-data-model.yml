@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/brainfish-public-api-openapi-original.json
+entities:
+- name: Catalog
+  description: API/content catalog synced into Brainfish (e.g. from an OpenAPI spec)
+- name: Collection
+  description: A grouping of knowledge-base documents
+- name: Document
+  description: A knowledge-base article/document (supports nesting via parentDocumentId)
+- name: Session
+  description: An end-user support session/conversation with the agent
+- name: AnalyticsThread
+  description: An analytics record of a conversation thread
+- name: SearchResult
+  description: A semantic search hit over documents
+relationships:
+- from: Document
+  to: Collection
+  type: belongs_to
+  via: collectionId
+- from: Document
+  to: Document
+  type: belongs_to
+  via: parentDocumentId
+- from: SearchResult
+  to: Collection
+  type: belongs_to
+  via: collectionId
+- from: Collection
+  to: Document
+  type: has_many
+  via: collectionId
+- from: Document
+  to: Document
+  type: has_many
+  via: parentDocumentId (nesting)
+id_prefixes:
+- entity: api_token
+  prefix: bf_api_
+note: Relationships derived from OpenAPI schema id-reference fields (collectionId,
+  parentDocumentId) and resource operations. Object id-prefixes beyond bf_api_ are
+  not published in the spec.

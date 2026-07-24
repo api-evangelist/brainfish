@@ -1,0 +1,97 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.npmjs.com/org/brainfish-ai
+note: >-
+  Brainfish ships no server-side REST API SDK on PyPI/Maven/NuGet. Its published
+  first-party libraries are browser/JS: an embeddable widget suite, a web analytics
+  tracker SDK, and a Milkdown-based markdown editor. All are published under the
+  official @brainfish-ai npm scope.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/tracker-sdk"
+    url: https://www.npmjs.com/package/@brainfish-ai/tracker-sdk
+    install: npm install @brainfish-ai/tracker-sdk
+    version: 0.0.1-alpha.5
+    official: true
+    kind: sdk
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/web-tracker"
+    url: https://www.npmjs.com/package/@brainfish-ai/web-tracker
+    install: npm install @brainfish-ai/web-tracker
+    version: 0.0.33
+    official: true
+    kind: sdk
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/web-widget"
+    url: https://www.npmjs.com/package/@brainfish-ai/web-widget
+    install: npm install @brainfish-ai/web-widget
+    version: 1.24.1
+    official: true
+    kind: widget
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/search-widget"
+    url: https://www.npmjs.com/package/@brainfish-ai/search-widget
+    install: npm install @brainfish-ai/search-widget
+    version: 0.21.4
+    official: true
+    kind: widget
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/help-widget"
+    url: https://www.npmjs.com/package/@brainfish-ai/help-widget
+    install: npm install @brainfish-ai/help-widget
+    version: 0.0.11-alpha.0
+    official: true
+    kind: widget
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/react-chat-widget"
+    url: https://www.npmjs.com/package/@brainfish-ai/react-chat-widget
+    install: npm install @brainfish-ai/react-chat-widget
+    version: 0.0.15
+    official: true
+    kind: widget
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/agent-chat-widget"
+    url: https://www.npmjs.com/package/@brainfish-ai/agent-chat-widget
+    install: npm install @brainfish-ai/agent-chat-widget
+    version: 0.1.0
+    official: true
+    kind: widget
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/nudge-widget"
+    url: https://www.npmjs.com/package/@brainfish-ai/nudge-widget
+    install: npm install @brainfish-ai/nudge-widget
+    version: 0.1.3
+    official: true
+    kind: widget
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/wayfinder-core"
+    url: https://www.npmjs.com/package/@brainfish-ai/wayfinder-core
+    install: npm install @brainfish-ai/wayfinder-core
+    version: 0.1.10
+    official: true
+    kind: widget
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/components"
+    url: https://www.npmjs.com/package/@brainfish-ai/components
+    install: npm install @brainfish-ai/components
+    version: 0.32.0
+    official: true
+    kind: components
+  - language: javascript
+    registry: npm
+    name: "@brainfish-ai/editor"
+    url: https://www.npmjs.com/package/@brainfish-ai/editor
+    install: npm install @brainfish-ai/editor
+    version: 0.3.0
+    official: true
+    kind: library

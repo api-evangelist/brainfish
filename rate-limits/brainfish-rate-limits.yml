@@ -1,0 +1,20 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.brainfi.sh/api-reference
+signaling:
+  headers:
+    - name: X-RateLimit-Limit
+      description: Maximum requests allowed in the window.
+    - name: X-RateLimit-Remaining
+      description: Remaining requests in the current window.
+    - name: X-RateLimit-Reset
+      description: Unix timestamp when the rate limit resets.
+  exceeded_status: 429
+  exceeded_error: rate_limit_exceeded
+limits:
+  - scope: Most endpoints
+    limit_count: 25
+    window: minute
+  - scope: Token revocation (POST /v1/auth/revoke)
+    limit_count: 10
+    window: hour

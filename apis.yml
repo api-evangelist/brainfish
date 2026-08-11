@@ -360,6 +360,8 @@ apis:
   - type: Arazzo
     url: arazzo/brainfish-catalog-sync.yml
 common:
+- type: Overlay
+  url: overlays/brainfish-public-api-overlay.yaml
 - type: DeveloperPortal
   url: https://docs.brainfi.sh
 - type: Documentation

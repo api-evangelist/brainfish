@@ -1,0 +1,1491 @@
+{
+  "item": [
+    {
+      "id": "111b2fb0-be32-4271-ae19-8a4d9df8c885",
+      "name": "Catalogs",
+      "description": {
+        "content": "Catalog management operations. Create catalogs and sync content programmatically via the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f22d4cb9-69d3-451c-8a60-e17317013c1e",
+          "name": "List catalogs",
+          "request": {
+            "name": "List catalogs",
+            "description": {
+              "content": "List all catalogs for the authenticated user's team. Supports filtering by source type and status, with pagination.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "catalogs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "Filter by catalog source type"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by catalog status"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of results to return (1-100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1216204b-fdc8-4ae7-82c6-a7e7ed1bbf31",
+              "name": "List of catalogs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"cat-123\",\n      \"name\": \"Developer Docs\",\n      \"source\": \"external\",\n      \"status\": \"completed\",\n      \"enabled\": true,\n      \"contentCount\": 42,\n      \"createdAt\": \"2024-01-10T08:00:00Z\",\n      \"updatedAt\": \"2024-01-15T10:30:00Z\"\n    }\n  ],\n  \"pagination\": {\n    \"offset\": 0,\n    \"limit\": 25,\n    \"total\": 3\n  },\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d295977-2709-4632-8330-d6fc91eb56e9",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b47adaf-1fb4-4deb-9ad0-c9cf9f0916f6",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "8584"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "8584"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "8584"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe9541b1-ce4b-44fa-b62e-133021220f9e",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"internal_error\",\n  \"message\": \"An unexpected error occurred\",\n  \"requestId\": \"req-abc123\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8452a0a6-9730-48d0-9409-ffffa6ecaba5",
+          "name": "Create catalog",
+          "request": {
+            "name": "Create catalog",
+            "description": {
+              "content": "Create a new catalog. A catalog is a container for content that can be synced via the API.\n\nAfter creating a catalog, use the sync endpoint (`POST /v1/catalogs/{id}/content`) to push content into it.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "catalogs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"source\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"configurations\": {\n    \"key_0\": 4603,\n    \"key_1\": true,\n    \"key_2\": 5319\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ff165ba-d133-443b-aaa4-a33ddad213d5",
+              "name": "Catalog created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Developer Documentation\",\n  \"source\": \"external\",\n  \"slug\": \"dev-docs\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"cat-123\",\n    \"name\": \"Developer Documentation\",\n    \"source\": \"external\",\n    \"status\": \"inprogress\",\n    \"enabled\": true,\n    \"createdAt\": \"2024-01-15T10:30:00Z\",\n    \"updatedAt\": \"2024-01-15T10:30:00Z\"\n  },\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b672b499-4761-45e5-9e66-5b5e44cb7b09",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Developer Documentation\",\n  \"source\": \"external\",\n  \"slug\": \"dev-docs\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b119a33-f0f7-45e1-a641-50dee5eb4090",
+              "name": "Invalid request format or unknown message type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Developer Documentation\",\n  \"source\": \"external\",\n  \"slug\": \"dev-docs\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_failed\",\n  \"message\": \"Request validation failed\",\n  \"validationErrors\": [\n    {\n      \"field\": \"query\",\n      \"message\": \"Query cannot be empty\",\n      \"code\": \"invalid_string\"\n    }\n  ],\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-val123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3d2feb6-22b9-4cfc-aaf5-923fc45d66cb",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Developer Documentation\",\n  \"source\": \"external\",\n  \"slug\": \"dev-docs\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "8584"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "8584"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "8584"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31edd2af-cc25-45fb-ab11-9abf59f601a2",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Developer Documentation\",\n  \"source\": \"external\",\n  \"slug\": \"dev-docs\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"internal_error\",\n  \"message\": \"An unexpected error occurred\",\n  \"requestId\": \"req-abc123\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9fbc6adb-2a30-4a4a-9ca9-e266f8956eac",
+          "name": "Get catalog",
+          "request": {
+            "name": "Get catalog",
+            "description": {
+              "content": "Retrieve a catalog by its ID, including a count of content entries.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "catalogs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) Catalog ID (UUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7e944101-a46c-4bfa-8f35-0300de04bd61",
+              "name": "Catalog details with content count",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"cat-123\",\n    \"name\": \"Developer Documentation\",\n    \"source\": \"external\",\n    \"status\": \"completed\",\n    \"enabled\": true,\n    \"contentCount\": 42,\n    \"createdAt\": \"2024-01-10T08:00:00Z\",\n    \"updatedAt\": \"2024-01-15T10:30:00Z\"\n  },\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e709b20b-d246-4511-a469-c50266e2032b",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b81c64d-42ea-46ee-a5ae-bf2ccf18203b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Document not found\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-notfound123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ccf7dc3-27fc-4cd5-9d19-856054a53249",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "8584"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "8584"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "8584"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d4f95fb-a039-40d9-9c41-69869922f480",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"internal_error\",\n  \"message\": \"An unexpected error occurred\",\n  \"requestId\": \"req-abc123\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32a36212-18ac-494e-88f9-ad92fcc0f166",
+          "name": "Sync content to catalog",
+          "request": {
+            "name": "Sync content to catalog",
+            "description": {
+              "content": "Sync content files to a catalog. This performs a **full sync**:\n\n- **New files** are created as catalog content entries\n- **Changed files** (different content or title) are updated\n- **Missing files** (present in catalog but not in request) are removed\n\nEach file is identified by its `url`, which acts as a unique key within the catalog.\n\nThis endpoint is designed for large documentation sets (1000+ files) and uses batched database operations for performance.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "catalogs",
+                ":id",
+                "content"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) Catalog ID (UUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"files\": [\n    {\n      \"url\": \"<string>\",\n      \"content\": \"<string>\",\n      \"title\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5e821d21-fbad-4f2f-aeb5-5ded25bb9e71",
+              "name": "Content synced successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"files\": [\n    {\n      \"url\": \"https://docs.acme.com/getting-started\",\n      \"content\": \"# Getting Started\\n\\nWelcome to our docs...\",\n      \"title\": \"Getting Started\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/guides/authentication\",\n      \"content\": \"# Authentication\\n\\nLearn how to authenticate...\",\n      \"title\": \"Authentication\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/api/endpoints\",\n      \"content\": \"# API Endpoints\\n\\nAvailable endpoints...\",\n      \"title\": \"API Endpoints\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"cat-123\",\n    \"name\": \"Developer Documentation\",\n    \"source\": \"external\",\n    \"status\": \"completed\",\n    \"contentCount\": 3,\n    \"created\": 2,\n    \"updated\": 1,\n    \"removed\": 0\n  },\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c2cf9cb-d383-47d6-9d22-a35a5afbe270",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"files\": [\n    {\n      \"url\": \"https://docs.acme.com/getting-started\",\n      \"content\": \"# Getting Started\\n\\nWelcome to our docs...\",\n      \"title\": \"Getting Started\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/guides/authentication\",\n      \"content\": \"# Authentication\\n\\nLearn how to authenticate...\",\n      \"title\": \"Authentication\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/api/endpoints\",\n      \"content\": \"# API Endpoints\\n\\nAvailable endpoints...\",\n      \"title\": \"API Endpoints\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec829fc0-f0be-449d-b7e9-aa223934da6e",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"files\": [\n    {\n      \"url\": \"https://docs.acme.com/getting-started\",\n      \"content\": \"# Getting Started\\n\\nWelcome to our docs...\",\n      \"title\": \"Getting Started\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/guides/authentication\",\n      \"content\": \"# Authentication\\n\\nLearn how to authenticate...\",\n      \"title\": \"Authentication\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/api/endpoints\",\n      \"content\": \"# API Endpoints\\n\\nAvailable endpoints...\",\n      \"title\": \"API Endpoints\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Document not found\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-notfound123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e244c596-2d20-4a17-b329-69085b8ea576",
+              "name": "Invalid request format or unknown message type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"files\": [\n    {\n      \"url\": \"https://docs.acme.com/getting-started\",\n      \"content\": \"# Getting Started\\n\\nWelcome to our docs...\",\n      \"title\": \"Getting Started\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/guides/authentication\",\n      \"content\": \"# Authentication\\n\\nLearn how to authenticate...\",\n      \"title\": \"Authentication\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/api/endpoints\",\n      \"content\": \"# API Endpoints\\n\\nAvailable endpoints...\",\n      \"title\": \"API Endpoints\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"validation_failed\",\n  \"message\": \"Request validation failed\",\n  \"validationErrors\": [\n    {\n      \"field\": \"query\",\n      \"message\": \"Query cannot be empty\",\n      \"code\": \"invalid_string\"\n    }\n  ],\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-val123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "313e98e2-c65e-481b-a4f4-74628bfd1ec3",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"files\": [\n    {\n      \"url\": \"https://docs.acme.com/getting-started\",\n      \"content\": \"# Getting Started\\n\\nWelcome to our docs...\",\n      \"title\": \"Getting Started\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/guides/authentication\",\n      \"content\": \"# Authentication\\n\\nLearn how to authenticate...\",\n      \"title\": \"Authentication\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/api/endpoints\",\n      \"content\": \"# API Endpoints\\n\\nAvailable endpoints...\",\n      \"title\": \"API Endpoints\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "8584"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "8584"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "8584"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ce4c180-4750-4581-94ac-4b02dcada838",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "catalogs",
+                    ":id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Catalog ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"files\": [\n    {\n      \"url\": \"https://docs.acme.com/getting-started\",\n      \"content\": \"# Getting Started\\n\\nWelcome to our docs...\",\n      \"title\": \"Getting Started\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/guides/authentication\",\n      \"content\": \"# Authentication\\n\\nLearn how to authenticate...\",\n      \"title\": \"Authentication\"\n    },\n    {\n      \"url\": \"https://docs.acme.com/api/endpoints\",\n      \"content\": \"# API Endpoints\\n\\nAvailable endpoints...\",\n      \"title\": \"API Endpoints\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"internal_error\",\n  \"message\": \"An unexpected error occurred\",\n  \"requestId\": \"req-abc123\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.brainfi.sh",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "01ea4ac6-897b-4c50-956d-55679294537a",
+    "name": "Brainfish Public Agents Catalogs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Brainfish API is organized around REST. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.\n\nUse the Brainfish API to programmatically manage your knowledge base, generate AI-powered answers, and integrate Brainfish capabilities into your applications.\n\n---\n\n## Just Getting Started?\n\nCheck out our [Help documentation](https://help.brainfi.sh) for guides and tutorials.\n\n---\n\n## Base URL\n\n```\nhttps://api.brainfi.sh\n```\n\nAll API requests must be made over HTTPS. Calls made over plain HTTP will fail.\n\n---\n\n## Authentication\n\nThe Brainfish API uses API tokens to authenticate requests. You can view and manage your API tokens in your [Brainfish Dashboard](https://app.brainfi.sh) under **Settings → API Tokens**.\n\nAPI tokens have the prefix `bf_api_`. Your API tokens carry many privileges, so be sure to keep them secure! Do not share your API tokens in publicly accessible areas such as GitHub, client-side code, and so forth.\n\nAll API requests must include authentication. Requests without authentication will fail.\n\n| Header | Description |\n|--------|-------------|\n| `Authorization` | Bearer token authentication: `Bearer bf_api_xxxxx` |\n| `agent-key` | Required for AI Agent endpoints only. Find this in your Agents page. |\n\n**Example: Authenticated Request**\n\n```bash\ncurl https://api.brainfi.sh/v1/auth/validate \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"Content-Type: application/json\"\n```\n\n---\n\n## Errors\n\nBrainfish uses conventional HTTP response codes to indicate the success or failure of an API request.\n\n| Code | Description |\n|------|-------------|\n| `2xx` | Success — The request was successful. |\n| `4xx` | Client Error — The request failed due to client-side issues (e.g., missing required parameter, invalid authentication, resource not found). |\n| `5xx` | Server Error — Something went wrong on Brainfish's servers (these are rare). |\n\n**Error Response Format**\n\n```json\n{\n  \"error\": \"validation_failed\",\n  \"message\": \"Request validation failed\",\n  \"validationErrors\": [\n    {\n      \"field\": \"query\",\n      \"message\": \"Query cannot be empty\",\n      \"code\": \"invalid_string\"\n    }\n  ],\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}\n```\n\nThe `requestId` can be provided to Brainfish support when troubleshooting issues.\n\n---\n\n## Rate Limiting\n\nThe API implements rate limiting to ensure fair usage and system stability.\n\n| Endpoint Type | Limit |\n|---------------|-------|\n| Most endpoints | 25 requests per minute |\n| Token revocation | 10 requests per hour |\n\nWhen you exceed the rate limit, the API returns a `429 Too Many Requests` response with headers indicating when you can retry:\n\n- `X-RateLimit-Limit`: Maximum requests allowed in the window\n- `X-RateLimit-Remaining`: Remaining requests in current window\n- `X-RateLimit-Reset`: Unix timestamp when the rate limit resets\n\n---\n\n## Available Resources\n\n| Resource | Description |\n|----------|-------------|\n| **Authentication** | Validate and revoke API tokens |\n| **AI Agents** | Generate streaming AI-powered answers from your knowledge base |\n| **Analytics** | Query conversation thread analytics with filtering and pagination |\n| **Conversations** | Generate follow-up questions for conversations |\n| **Collections** | Organize documents into collections |\n| **Catalogs** | Create catalogs and sync content via API |\n| **Documents** | Create, read, update, and delete documents |\n\n---\n\n## Quick Start\n\n**1. Create an API token** in your Brainfish dashboard under Settings → API Tokens.\n\n**2. Validate your token** to ensure it's working:\n\n```bash\ncurl https://api.brainfi.sh/v1/auth/validate \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"Content-Type: application/json\"\n```\n\n**3. For AI endpoints**, get your agent key from the Agents page.\n\n**4. Generate an AI answer**:\n\n```bash\ncurl https://api.brainfi.sh/v1/agents/answer \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"agent-key: your-agent-key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"How do I reset my password?\"}'\n```\n\n---\n\n## Pagination\n\nList endpoints support pagination using `limit` and `offset` parameters:\n\n| Parameter | Description | Default |\n|-----------|-------------|---------|\n| `limit` | Maximum number of results to return (1-100) | 25 |\n| `offset` | Number of results to skip | 0 |\n\nPaginated responses include a `pagination` object:\n\n```json\n{\n  \"data\": [...],\n  \"pagination\": {\n    \"offset\": 0,\n    \"limit\": 25,\n    \"total\": 42\n  }\n}\n```\n\n\nContact Support:\n Name: Brainfish API Support\n Email: support@brainfish.ai",
+      "type": "text/plain"
+    }
+  }
+}

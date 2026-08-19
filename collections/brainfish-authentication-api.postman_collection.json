@@ -1,0 +1,563 @@
+{
+  "item": [
+    {
+      "id": "4fd5be5c-36b2-433f-8ac7-bcabbe9447af",
+      "name": "Authentication",
+      "description": {
+        "content": "Authentication and token validation operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa91170d-abcc-4a5d-bc8e-39aa5d9b11a0",
+          "name": "Validate access token",
+          "request": {
+            "name": "Validate access token",
+            "description": {
+              "content": "Validate an access token and return user information. This endpoint is useful for testing authentication setup and verifying token validity.\n\nOnly requires the access token header - no agent key needed.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "auth",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "44b49277-a57e-4520-82e3-8baf9e28d44e",
+              "name": "Token is valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"valid\": true,\n  \"user\": {\n    \"id\": \"user-123\",\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"teamId\": \"team-456\",\n    \"teamName\": \"Acme Corp\"\n  },\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de497588-bf50-4965-a772-1487b51e3533",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d01e9418-095a-4759-bee0-2be8fe463cd3",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "3009"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "3009"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "3009"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f8be779-a1f9-45ea-b8cb-528f8762576c",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"internal_error\",\n  \"message\": \"An unexpected error occurred\",\n  \"requestId\": \"req-abc123\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87a620c4-9855-444e-8cde-a683fe0f14ba",
+          "name": "Revoke access token",
+          "request": {
+            "name": "Revoke access token",
+            "description": {
+              "content": "Revoke the access token used to authenticate this request. Once revoked, the token will no longer be valid for API calls.\n\n**Warning**: This action cannot be undone. You will need to create a new access token to continue using the API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "auth",
+                "revoke"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8d52b836-4513-4927-ac9c-27d848306f52",
+              "name": "Token successfully revoked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Access token has been revoked successfully\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "508b21d0-16c6-4960-ba34-26536ca62521",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07f4b6c9-5198-4725-86e7-bd93fd40bffd",
+              "name": "Token not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"API key not found\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aad5cc23-a306-4714-b0a4-558ecc6d5843",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "3009"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "3009"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "3009"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88966873-f64a-4480-b543-a3e351107f7d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"internal_error\",\n  \"message\": \"An unexpected error occurred\",\n  \"requestId\": \"req-abc123\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.brainfi.sh",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "79ca261f-430c-4e8c-aa2a-97ce8608ab59",
+    "name": "Brainfish Public Agents Authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Brainfish API is organized around REST. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.\n\nUse the Brainfish API to programmatically manage your knowledge base, generate AI-powered answers, and integrate Brainfish capabilities into your applications.\n\n---\n\n## Just Getting Started?\n\nCheck out our [Help documentation](https://help.brainfi.sh) for guides and tutorials.\n\n---\n\n## Base URL\n\n```\nhttps://api.brainfi.sh\n```\n\nAll API requests must be made over HTTPS. Calls made over plain HTTP will fail.\n\n---\n\n## Authentication\n\nThe Brainfish API uses API tokens to authenticate requests. You can view and manage your API tokens in your [Brainfish Dashboard](https://app.brainfi.sh) under **Settings → API Tokens**.\n\nAPI tokens have the prefix `bf_api_`. Your API tokens carry many privileges, so be sure to keep them secure! Do not share your API tokens in publicly accessible areas such as GitHub, client-side code, and so forth.\n\nAll API requests must include authentication. Requests without authentication will fail.\n\n| Header | Description |\n|--------|-------------|\n| `Authorization` | Bearer token authentication: `Bearer bf_api_xxxxx` |\n| `agent-key` | Required for AI Agent endpoints only. Find this in your Agents page. |\n\n**Example: Authenticated Request**\n\n```bash\ncurl https://api.brainfi.sh/v1/auth/validate \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"Content-Type: application/json\"\n```\n\n---\n\n## Errors\n\nBrainfish uses conventional HTTP response codes to indicate the success or failure of an API request.\n\n| Code | Description |\n|------|-------------|\n| `2xx` | Success — The request was successful. |\n| `4xx` | Client Error — The request failed due to client-side issues (e.g., missing required parameter, invalid authentication, resource not found). |\n| `5xx` | Server Error — Something went wrong on Brainfish's servers (these are rare). |\n\n**Error Response Format**\n\n```json\n{\n  \"error\": \"validation_failed\",\n  \"message\": \"Request validation failed\",\n  \"validationErrors\": [\n    {\n      \"field\": \"query\",\n      \"message\": \"Query cannot be empty\",\n      \"code\": \"invalid_string\"\n    }\n  ],\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}\n```\n\nThe `requestId` can be provided to Brainfish support when troubleshooting issues.\n\n---\n\n## Rate Limiting\n\nThe API implements rate limiting to ensure fair usage and system stability.\n\n| Endpoint Type | Limit |\n|---------------|-------|\n| Most endpoints | 25 requests per minute |\n| Token revocation | 10 requests per hour |\n\nWhen you exceed the rate limit, the API returns a `429 Too Many Requests` response with headers indicating when you can retry:\n\n- `X-RateLimit-Limit`: Maximum requests allowed in the window\n- `X-RateLimit-Remaining`: Remaining requests in current window\n- `X-RateLimit-Reset`: Unix timestamp when the rate limit resets\n\n---\n\n## Available Resources\n\n| Resource | Description |\n|----------|-------------|\n| **Authentication** | Validate and revoke API tokens |\n| **AI Agents** | Generate streaming AI-powered answers from your knowledge base |\n| **Analytics** | Query conversation thread analytics with filtering and pagination |\n| **Conversations** | Generate follow-up questions for conversations |\n| **Collections** | Organize documents into collections |\n| **Catalogs** | Create catalogs and sync content via API |\n| **Documents** | Create, read, update, and delete documents |\n\n---\n\n## Quick Start\n\n**1. Create an API token** in your Brainfish dashboard under Settings → API Tokens.\n\n**2. Validate your token** to ensure it's working:\n\n```bash\ncurl https://api.brainfi.sh/v1/auth/validate \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"Content-Type: application/json\"\n```\n\n**3. For AI endpoints**, get your agent key from the Agents page.\n\n**4. Generate an AI answer**:\n\n```bash\ncurl https://api.brainfi.sh/v1/agents/answer \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"agent-key: your-agent-key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"How do I reset my password?\"}'\n```\n\n---\n\n## Pagination\n\nList endpoints support pagination using `limit` and `offset` parameters:\n\n| Parameter | Description | Default |\n|-----------|-------------|---------|\n| `limit` | Maximum number of results to return (1-100) | 25 |\n| `offset` | Number of results to skip | 0 |\n\nPaginated responses include a `pagination` object:\n\n```json\n{\n  \"data\": [...],\n  \"pagination\": {\n    \"offset\": 0,\n    \"limit\": 25,\n    \"total\": 42\n  }\n}\n```\n\n\nContact Support:\n Name: Brainfish API Support\n Email: support@brainfish.ai",
+      "type": "text/plain"
+    }
+  }
+}

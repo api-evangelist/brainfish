@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brainfish Public Agents API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate streaming answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/agents/answer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate streaming answers for queries using AI agents. This endpoint provides real-time\nstreaming responses for question answering with optional user personalization.\n\nSimply provide a query string and optionally a `filter.collectionIds` array to get an AI-generated answer.\nWhen `filter.collectionIds` is provided, those collections are included in the search scope, along with\nany widget-based personalization collections when applicable. Otherwise, the endpoint uses the default\nanswer flow. The "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

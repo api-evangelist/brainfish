@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brainfish Public Agents Catalogs API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Catalogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List catalogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.brainfi.sh/v1/catalogs",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by catalog source type"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by catalog status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (1-100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all catalogs for the authenticated user's team. Supports filtering by source type and status, with pagination.\n"
+        },
+        {
+          "info": {
+            "name": "Create catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/catalogs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new catalog. A catalog is a container for content that can be synced via the API.\n\nAfter creating a catalog, use the sync endpoint (`POST /v1/catalogs/{id}/content`) to push content into it.\n"
+        },
+        {
+          "info": {
+            "name": "Get catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.brainfi.sh/v1/catalogs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Catalog ID (UUID)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a catalog by its ID, including a count of content entries.\n"
+        },
+        {
+          "info": {
+            "name": "Sync content to catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/catalogs/:id/content",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Catalog ID (UUID)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sync content files to a catalog. This performs a **full sync**:\n\n- **New files** are created as catalog content entries\n- **Changed files** (different content or title) are updated\n- **Missing files** (present in catalog but not in request) are removed\n\nEach file is identified by its `url`, which acts as a unique key within the catalog.\n\nThis endpoint is designed for large documentation sets (1000+ files) and uses batched database operations for performance.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

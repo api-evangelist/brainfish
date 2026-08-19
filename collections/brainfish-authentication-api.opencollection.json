@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brainfish Public Agents Authentication API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Validate access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/auth/validate",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Validate an access token and return user information. This endpoint is useful for testing authentication setup and verifying token validity.\n\nOnly requires the access token header - no agent key needed.\n"
+        },
+        {
+          "info": {
+            "name": "Revoke access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/auth/revoke",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Revoke the access token used to authenticate this request. Once revoked, the token will no longer be valid for API calls.\n\n**Warning**: This action cannot be undone. You will need to create a new access token to continue using the API.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

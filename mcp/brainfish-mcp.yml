@@ -8,78 +8,84 @@ server:
   transport: http
   url: https://mcp.brainfi.sh
   auth:
-    - method: oauth2.1
-      description: >-
-        One-click OAuth in Claude.ai (Settings -> Integrations). Authorization Code
-        + PKCE (S256) with dynamic client registration.
-      authorization_endpoint: https://mcp.brainfi.sh/authorize
-      token_endpoint: https://mcp.brainfi.sh/token
-      registration_endpoint: https://mcp.brainfi.sh/register
-      scopes: [mcp]
-      well_known:
-        - well-known/brainfish-mcp-oauth-authorization-server.json
-        - well-known/brainfish-mcp-oauth-protected-resource.json
-    - method: bearer
-      description: >-
-        API-token bearer auth for Claude Desktop / Cursor / VS Code via config file.
-        Token format bf_api_. An agent-key is additionally required for answer tools.
-      token_format: bf_api_
+  - method: oauth2.1
+    description: One-click OAuth in Claude.ai (Settings -> Integrations). Authorization Code + PKCE (S256)
+      with dynamic client registration.
+    authorization_endpoint: https://mcp.brainfi.sh/authorize
+    token_endpoint: https://mcp.brainfi.sh/token
+    registration_endpoint: https://mcp.brainfi.sh/register
+    scopes:
+    - mcp
+    well_known:
+    - well-known/brainfish-mcp-oauth-authorization-server.json
+    - well-known/brainfish-mcp-oauth-protected-resource.json
+  - method: bearer
+    description: API-token bearer auth for Claude Desktop / Cursor / VS Code via config file. Token format
+      bf_api_. An agent-key is additionally required for answer tools.
+    token_format: bf_api_
 backing_api: openapi/brainfish-public-api-openapi-original.json
 tools:
-  - name: brainfish_search_documents
-    description: Semantic search across the knowledge base.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#searchDocuments
-  - name: brainfish_get_document
-    description: Retrieve a document by ID or URL slug.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#getDocument
-  - name: brainfish_list_documents
-    description: List documents with filters and pagination.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#listDocuments
-  - name: brainfish_create_document
-    description: Create a new document in a collection.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#createDocument
-  - name: brainfish_update_document
-    description: Modify title, content, or publish status of a document.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#updateDocument
-  - name: brainfish_move_document
-    description: Relocate a document to another collection.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#moveDocument
-  - name: brainfish_delete_document
-    description: Soft or permanent document removal.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#deleteDocument
-  - name: brainfish_generate_article_suggestion
-    description: AI-powered article-content suggestion (async).
-    source_operation: openapi/brainfish-public-api-openapi-original.json#generateArticleSuggestion
-  - name: brainfish_list_collections
-    source_operation: openapi/brainfish-public-api-openapi-original.json#listCollections
-  - name: brainfish_get_collection
-    source_operation: openapi/brainfish-public-api-openapi-original.json#getCollection
-  - name: brainfish_create_collection
-    source_operation: openapi/brainfish-public-api-openapi-original.json#createCollection
-  - name: brainfish_update_collection
-    source_operation: openapi/brainfish-public-api-openapi-original.json#updateCollection
-  - name: brainfish_delete_collection
-    source_operation: openapi/brainfish-public-api-openapi-original.json#deleteCollection
-  - name: brainfish_generate_user_answer
-    description: Generate an AI answer with source citations.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#generateUserAnswer
-  - name: brainfish_generate_follow_ups
-    description: Generate follow-up questions for a conversation.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#generateFollowUpQuestions
-  - name: brainfish_list_catalogs
-    source_operation: openapi/brainfish-public-api-openapi-original.json#listCatalogs
-  - name: brainfish_get_catalog
-    source_operation: openapi/brainfish-public-api-openapi-original.json#getCatalog
-  - name: brainfish_sync_catalog_content
-    source_operation: openapi/brainfish-public-api-openapi-original.json#syncCatalogContent
-  - name: brainfish_search_sessions
-    source_operation: openapi/brainfish-public-api-openapi-original.json#searchSessions
-  - name: brainfish_get_session
-    source_operation: openapi/brainfish-public-api-openapi-original.json#getSession
-  - name: brainfish_get_session_timeline
-    source_operation: openapi/brainfish-public-api-openapi-original.json#getSessionTimeline
-  - name: brainfish_generate_session_insights
-    source_operation: openapi/brainfish-public-api-openapi-original.json#generateSessionInsights
-  - name: brainfish_validate_token
-    description: Verify the API token and retrieve user/team info.
-    source_operation: openapi/brainfish-public-api-openapi-original.json#validateToken
+- name: brainfish_search_documents
+  description: Semantic search across the knowledge base.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#searchDocuments
+- name: brainfish_get_document
+  description: Retrieve a document by ID or URL slug.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#getDocument
+- name: brainfish_list_documents
+  description: List documents with filters and pagination.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#listDocuments
+- name: brainfish_create_document
+  description: Create a new document in a collection.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#createDocument
+- name: brainfish_update_document
+  description: Modify title, content, or publish status of a document.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#updateDocument
+- name: brainfish_move_document
+  description: Relocate a document to another collection.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#moveDocument
+- name: brainfish_delete_document
+  description: Soft or permanent document removal.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#deleteDocument
+- name: brainfish_generate_article_suggestion
+  description: AI-powered article-content suggestion (async).
+  source_operation: openapi/brainfish-public-api-openapi-original.json#generateArticleSuggestion
+- name: brainfish_list_collections
+  source_operation: openapi/brainfish-public-api-openapi-original.json#listCollections
+- name: brainfish_get_collection
+  source_operation: openapi/brainfish-public-api-openapi-original.json#getCollection
+- name: brainfish_create_collection
+  source_operation: openapi/brainfish-public-api-openapi-original.json#createCollection
+- name: brainfish_update_collection
+  source_operation: openapi/brainfish-public-api-openapi-original.json#updateCollection
+- name: brainfish_delete_collection
+  source_operation: openapi/brainfish-public-api-openapi-original.json#deleteCollection
+- name: brainfish_generate_user_answer
+  description: Generate an AI answer with source citations.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#generateUserAnswer
+- name: brainfish_generate_follow_ups
+  description: Generate follow-up questions for a conversation.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#generateFollowUpQuestions
+- name: brainfish_list_catalogs
+  source_operation: openapi/brainfish-public-api-openapi-original.json#listCatalogs
+- name: brainfish_get_catalog
+  source_operation: openapi/brainfish-public-api-openapi-original.json#getCatalog
+- name: brainfish_sync_catalog_content
+  source_operation: openapi/brainfish-public-api-openapi-original.json#syncCatalogContent
+- name: brainfish_search_sessions
+  source_operation: openapi/brainfish-public-api-openapi-original.json#searchSessions
+- name: brainfish_get_session
+  source_operation: openapi/brainfish-public-api-openapi-original.json#getSession
+- name: brainfish_get_session_timeline
+  source_operation: openapi/brainfish-public-api-openapi-original.json#getSessionTimeline
+- name: brainfish_generate_session_insights
+  source_operation: openapi/brainfish-public-api-openapi-original.json#generateSessionInsights
+- name: brainfish_validate_token
+  description: Verify the API token and retrieve user/team info.
+  source_operation: openapi/brainfish-public-api-openapi-original.json#validateToken
+deployment:
+  mode: remote
+  endpoint: https://mcp.brainfi.sh
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brainfish Public Agents Conversations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate follow-up questions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/conversations/:conversationId/follow-ups",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "",
+                "type": "path",
+                "description": "Conversation ID from a previous answer generation session"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate follow-up questions for a conversation based on the most recent answer and its source documents.\n\nThis endpoint analyzes the conversation context (the original question, the AI-generated answer, and the\nsource documents) to suggest relevant follow-up questions the user might want to ask next.\n\nThe `conversationId` must reference an existing conversation that has a completed answer. If the\nconversation has no answer yet, a 422 error is returned.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

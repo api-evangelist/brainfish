@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brainfish Public Agents Users API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate streaming answer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/users/answer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate streaming answers for queries. This is a simplified endpoint that accepts a query\nand optional collection filters to scope which knowledge base collections are searched.\n\nUse the optional `collectionIds` array to restrict answers to specific collections the\ncaller has access to. When omitted, all available collections are searched.\n\nThe response is streamed using Server-Sent Events (SSE) format, identical to the\n`/v1/agents/answer` endpoint.\n\nFor user personalization (attribute-based co"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

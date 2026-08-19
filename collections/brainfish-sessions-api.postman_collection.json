@@ -1,0 +1,1334 @@
+{
+  "item": [
+    {
+      "id": "21a989b1-aaf8-464e-b206-4bf85fbd60c5",
+      "name": "Sessions",
+      "description": {
+        "content": "Chat session search, detail, timeline, and AI-powered insights. A \"session\" is a chat conversation keyed by conversationId.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2478b564-c45e-4fba-bcce-842d9a0111cd",
+          "name": "Search chat sessions",
+          "request": {
+            "name": "Search chat sessions",
+            "description": {
+              "content": "Search chat sessions (conversations) by query text, filters, and date range.\nReturns one result per conversation, folded by conversationId.\nA \"session\" in this context means a chat conversation (one or more user turns with the AI agent).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sessions",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"conversationId\": \"<string>\",\n  \"userId\": \"<uuid>\",\n  \"externalUserId\": \"<string>\",\n  \"widgetIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"source\": \"<string>\",\n  \"feedback\": \"<string>\",\n  \"isAnswered\": \"<boolean>\",\n  \"fromDate\": \"<dateTime>\",\n  \"toDate\": \"<dateTime>\",\n  \"limit\": 20,\n  \"offset\": 0,\n  \"sortOrder\": \"desc\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b7b8901c-5f7e-4cad-916d-f0595a8af2db",
+              "name": "Sessions matching the search criteria",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"refund\",\n  \"isAnswered\": false,\n  \"fromDate\": \"2026-04-01T00:00:00Z\",\n  \"toDate\": \"2026-04-23T23:59:59Z\",\n  \"limit\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"conversationId\": \"string\",\n      \"lastQuery\": \"string\",\n      \"lastQueryAt\": \"1995-02-25T04:38:45.862Z\",\n      \"turnCount\": 1533,\n      \"isAnswered\": true,\n      \"feedback\": \"string\",\n      \"userId\": \"string\",\n      \"externalUserId\": \"string\",\n      \"source\": \"string\",\n      \"widgetId\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"conversationId\": \"string\",\n      \"lastQuery\": \"string\",\n      \"lastQueryAt\": \"1958-01-24T20:48:29.377Z\",\n      \"turnCount\": 6248,\n      \"isAnswered\": true,\n      \"feedback\": \"string\",\n      \"userId\": \"string\",\n      \"externalUserId\": \"string\",\n      \"source\": \"string\",\n      \"widgetId\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"offset\": 404,\n    \"limit\": 9442,\n    \"total\": 5675\n  },\n  \"timestamp\": \"1995-03-23T06:30:59.854Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0408350b-a5f7-4191-ae6e-6d26fe6d35ec",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"refund\",\n  \"isAnswered\": false,\n  \"fromDate\": \"2026-04-01T00:00:00Z\",\n  \"toDate\": \"2026-04-23T23:59:59Z\",\n  \"limit\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89683dd8-e1c6-47d7-af98-370c158863f4",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"refund\",\n  \"isAnswered\": false,\n  \"fromDate\": \"2026-04-01T00:00:00Z\",\n  \"toDate\": \"2026-04-23T23:59:59Z\",\n  \"limit\": 20\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "9179"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "9179"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "9179"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32550a69-ba81-4cc6-a8b5-1719c888d9fc",
+          "name": "Get session detail",
+          "request": {
+            "name": "Get session detail",
+            "description": {
+              "content": "Fetch full conversation detail for a chat session: all turns (user query, AI answer, feedback)\nplus analytics metadata (session start time, start URL, linked search query IDs).\nAccepts a conversationId or searchQueryId.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sessions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Conversation ID or search query ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ad32db05-299a-459b-ab1b-e926099db850",
+              "name": "Session detail with turns and analytics metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID or search query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"conversationId\": \"string\",\n    \"teamId\": \"string\",\n    \"startedAt\": \"2015-12-27T22:05:26.802Z\",\n    \"endedAt\": \"1998-12-15T02:32:18.495Z\",\n    \"sessionId\": \"string\",\n    \"startedAtUrl\": \"string\",\n    \"searchQueryIds\": [\n      \"string\",\n      \"string\"\n    ],\n    \"turnCount\": 428,\n    \"turns\": [\n      {\n        \"id\": \"string\",\n        \"query\": \"string\",\n        \"rewrittenQuery\": \"string\",\n        \"suggestedAnswer\": \"string\",\n        \"isAnswered\": false,\n        \"feedback\": \"string\",\n        \"createdAt\": \"1990-07-18T10:23:25.363Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"query\": \"string\",\n        \"rewrittenQuery\": \"string\",\n        \"suggestedAnswer\": \"string\",\n        \"isAnswered\": true,\n        \"feedback\": \"string\",\n        \"createdAt\": \"1982-10-12T20:38:30.960Z\"\n      }\n    ]\n  },\n  \"timestamp\": \"1974-10-30T21:06:41.717Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3cf4e14-35b2-4ba4-83a4-f2958ce37bc8",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID or search query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e518040a-8ca2-40ad-ae3b-ea0efd42345f",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID or search query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Document not found\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-notfound123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4c67186-900c-41ad-b3d0-93d69f5236de",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID or search query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "9179"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "9179"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "9179"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10739af6-047a-48dd-8871-ee3a315dea6f",
+          "name": "Get session event timeline",
+          "request": {
+            "name": "Get session event timeline",
+            "description": {
+              "content": "Fetch the chronological analytics event timeline for a conversation. Includes page views,\nwidget interactions, search events, and chat turns with their properties map.\nThe timeline is proxied from the analytic-service.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sessions",
+                ":id",
+                "timeline"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "200"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeSessionContext",
+                  "value": "true",
+                  "description": "Include session-level events (screen views, widget open/close)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "eventNames",
+                  "value": "<string>",
+                  "description": "Comma-separated event name(s) to filter by (e.g. \"screen_view,Primary Field Search Submitted\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Comma-separated country code(s) (e.g. \"US,CA\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "Comma-separated city name(s)"
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>",
+                  "description": "Comma-separated region/state name(s)"
+                },
+                {
+                  "disabled": false,
+                  "key": "os",
+                  "value": "<string>",
+                  "description": "Comma-separated OS name(s) (e.g. \"Mac OS,Windows\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "browser",
+                  "value": "<string>",
+                  "description": "Comma-separated browser name(s) (e.g. \"Chrome,Safari\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "device",
+                  "value": "<string>",
+                  "description": "Comma-separated device type(s) (e.g. \"desktop,mobile\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "referrerType",
+                  "value": "<string>",
+                  "description": "Comma-separated referrer type(s) (e.g. \"search,social,direct\")"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Conversation ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "433a8a58-d772-448f-842c-478af0c176f1",
+              "name": "Chronological event timeline",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id",
+                    "timeline"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "200"
+                    },
+                    {
+                      "key": "includeSessionContext",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "eventNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "browser",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referrerType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"createdAt\": \"string\",\n      \"userId\": \"string\",\n      \"sessionId\": \"string\",\n      \"widgetKey\": \"string\",\n      \"conversationId\": \"string\",\n      \"searchQueryId\": \"string\",\n      \"path\": \"string\",\n      \"origin\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"createdAt\": \"string\",\n      \"userId\": \"string\",\n      \"sessionId\": \"string\",\n      \"widgetKey\": \"string\",\n      \"conversationId\": \"string\",\n      \"searchQueryId\": \"string\",\n      \"path\": \"string\",\n      \"origin\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"timestamp\": \"1986-01-22T03:06:14.756Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0761f27-049b-4119-9679-5966560bd3d6",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id",
+                    "timeline"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "200"
+                    },
+                    {
+                      "key": "includeSessionContext",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "eventNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "browser",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referrerType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf1a13d8-4306-47db-a8cd-5906d17cb1b3",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id",
+                    "timeline"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "200"
+                    },
+                    {
+                      "key": "includeSessionContext",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "eventNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "browser",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referrerType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "9179"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "9179"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "9179"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b78a33d-e987-4b67-811c-34b9926ea1d2",
+          "name": "Generate session insights",
+          "request": {
+            "name": "Generate session insights",
+            "description": {
+              "content": "Generate a structured LLM-powered diagnosis of a chat session: root cause analysis,\nseverity, evidence, and actionable recommendations. Results are cached server-side for 24 hours.\nUse force=true to regenerate.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sessions",
+                ":id",
+                "insights"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Conversation ID or search query ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"force\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "14140eed-05a2-4057-89af-f37cb55499c9",
+              "name": "Structured session diagnosis",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id",
+                    "insights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID or search query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"summary\": \"string\",\n    \"rootCause\": {\n      \"category\": \"retrieval_miss\",\n      \"explanation\": \"string\"\n    },\n    \"severity\": \"medium\",\n    \"evidence\": [\n      {\n        \"type\": \"string\",\n        \"ref\": \"string\",\n        \"quote\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"ref\": \"string\",\n        \"quote\": \"string\"\n      }\n    ],\n    \"recommendations\": [\n      {\n        \"action\": \"string\",\n        \"rationale\": \"string\"\n      },\n      {\n        \"action\": \"string\",\n        \"rationale\": \"string\"\n      }\n    ],\n    \"metrics\": {\n      \"turnCount\": 1599,\n      \"hadNegativeFeedback\": true,\n      \"answerCoverage\": \"none\"\n    }\n  },\n  \"cached\": true,\n  \"timestamp\": \"1989-10-31T15:29:52.713Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8208876-0c72-4597-bcf2-6b5ac747fc55",
+              "name": "Authentication required or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id",
+                    "insights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID or search query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"authentication_required\",\n  \"message\": \"Authentication required. Use Authorization: Bearer <token> header\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bd96497-2cb3-4ee1-a8f2-9e92ae40982b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id",
+                    "insights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID or search query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"message\": \"Document not found\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-notfound123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d87e022-0b35-40b9-b964-076d753637f1",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sessions",
+                    ":id",
+                    "insights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Conversation ID or search query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"force\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Request limit per time window",
+                  "key": "X-RateLimit-Limit",
+                  "value": "9179"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in current window",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "9179"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time when rate limit resets (Unix timestamp)",
+                  "key": "X-RateLimit-Reset",
+                  "value": "9179"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"rate_limit_exceeded\",\n  \"message\": \"Too many requests. Rate limit: 25 requests per minute\",\n  \"timestamp\": \"2024-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.brainfi.sh",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6dfcf0be-a09c-467a-a88d-6d67c36aa097",
+    "name": "Brainfish Public Agents Sessions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Brainfish API is organized around REST. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.\n\nUse the Brainfish API to programmatically manage your knowledge base, generate AI-powered answers, and integrate Brainfish capabilities into your applications.\n\n---\n\n## Just Getting Started?\n\nCheck out our [Help documentation](https://help.brainfi.sh) for guides and tutorials.\n\n---\n\n## Base URL\n\n```\nhttps://api.brainfi.sh\n```\n\nAll API requests must be made over HTTPS. Calls made over plain HTTP will fail.\n\n---\n\n## Authentication\n\nThe Brainfish API uses API tokens to authenticate requests. You can view and manage your API tokens in your [Brainfish Dashboard](https://app.brainfi.sh) under **Settings → API Tokens**.\n\nAPI tokens have the prefix `bf_api_`. Your API tokens carry many privileges, so be sure to keep them secure! Do not share your API tokens in publicly accessible areas such as GitHub, client-side code, and so forth.\n\nAll API requests must include authentication. Requests without authentication will fail.\n\n| Header | Description |\n|--------|-------------|\n| `Authorization` | Bearer token authentication: `Bearer bf_api_xxxxx` |\n| `agent-key` | Required for AI Agent endpoints only. Find this in your Agents page. |\n\n**Example: Authenticated Request**\n\n```bash\ncurl https://api.brainfi.sh/v1/auth/validate \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"Content-Type: application/json\"\n```\n\n---\n\n## Errors\n\nBrainfish uses conventional HTTP response codes to indicate the success or failure of an API request.\n\n| Code | Description |\n|------|-------------|\n| `2xx` | Success — The request was successful. |\n| `4xx` | Client Error — The request failed due to client-side issues (e.g., missing required parameter, invalid authentication, resource not found). |\n| `5xx` | Server Error — Something went wrong on Brainfish's servers (these are rare). |\n\n**Error Response Format**\n\n```json\n{\n  \"error\": \"validation_failed\",\n  \"message\": \"Request validation failed\",\n  \"validationErrors\": [\n    {\n      \"field\": \"query\",\n      \"message\": \"Query cannot be empty\",\n      \"code\": \"invalid_string\"\n    }\n  ],\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}\n```\n\nThe `requestId` can be provided to Brainfish support when troubleshooting issues.\n\n---\n\n## Rate Limiting\n\nThe API implements rate limiting to ensure fair usage and system stability.\n\n| Endpoint Type | Limit |\n|---------------|-------|\n| Most endpoints | 25 requests per minute |\n| Token revocation | 10 requests per hour |\n\nWhen you exceed the rate limit, the API returns a `429 Too Many Requests` response with headers indicating when you can retry:\n\n- `X-RateLimit-Limit`: Maximum requests allowed in the window\n- `X-RateLimit-Remaining`: Remaining requests in current window\n- `X-RateLimit-Reset`: Unix timestamp when the rate limit resets\n\n---\n\n## Available Resources\n\n| Resource | Description |\n|----------|-------------|\n| **Authentication** | Validate and revoke API tokens |\n| **AI Agents** | Generate streaming AI-powered answers from your knowledge base |\n| **Analytics** | Query conversation thread analytics with filtering and pagination |\n| **Conversations** | Generate follow-up questions for conversations |\n| **Collections** | Organize documents into collections |\n| **Catalogs** | Create catalogs and sync content via API |\n| **Documents** | Create, read, update, and delete documents |\n\n---\n\n## Quick Start\n\n**1. Create an API token** in your Brainfish dashboard under Settings → API Tokens.\n\n**2. Validate your token** to ensure it's working:\n\n```bash\ncurl https://api.brainfi.sh/v1/auth/validate \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"Content-Type: application/json\"\n```\n\n**3. For AI endpoints**, get your agent key from the Agents page.\n\n**4. Generate an AI answer**:\n\n```bash\ncurl https://api.brainfi.sh/v1/agents/answer \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"agent-key: your-agent-key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"How do I reset my password?\"}'\n```\n\n---\n\n## Pagination\n\nList endpoints support pagination using `limit` and `offset` parameters:\n\n| Parameter | Description | Default |\n|-----------|-------------|---------|\n| `limit` | Maximum number of results to return (1-100) | 25 |\n| `offset` | Number of results to skip | 0 |\n\nPaginated responses include a `pagination` object:\n\n```json\n{\n  \"data\": [...],\n  \"pagination\": {\n    \"offset\": 0,\n    \"limit\": 25,\n    \"total\": 42\n  }\n}\n```\n\n\nContact Support:\n Name: Brainfish API Support\n Email: support@brainfish.ai",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brainfish Public Agents Documents API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.brainfi.sh/v1/documents",
+            "params": [
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by collection ID"
+              },
+              {
+                "name": "parentDocumentId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by parent document ID. Use 'null' to get root-level documents."
+              },
+              {
+                "name": "template",
+                "value": "",
+                "type": "query",
+                "description": "Filter by template status"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (1-100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List documents with optional filtering and pagination. Returns documents the authenticated user has access to.\n"
+        },
+        {
+          "info": {
+            "name": "Create document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new document. You can create a published document or a draft by setting the `publish` flag.\n"
+        },
+        {
+          "info": {
+            "name": "Get document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.brainfi.sh/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Document identifier. Accepts either:\n- UUID format: `123e4567-e89b-12d3-a456-426614174000`\n- URL slug format: `bookings-and-meet-greets-tqQoYObGRP`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a document by its ID or URL ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.brainfi.sh/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Document identifier. Accepts either:\n- UUID format: `123e4567-e89b-12d3-a456-426614174000`\n- URL slug format: `bookings-and-meet-greets-tqQoYObGRP`\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing document. Only provided fields will be updated.\n"
+        },
+        {
+          "info": {
+            "name": "Delete document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.brainfi.sh/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Document identifier. Accepts either:\n- UUID format: `123e4567-e89b-12d3-a456-426614174000`\n- URL slug format: `bookings-and-meet-greets-tqQoYObGRP`\n"
+              },
+              {
+                "name": "permanent",
+                "value": "",
+                "type": "query",
+                "description": "Whether to permanently delete the document"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a document. By default, the document is soft-deleted and can be restored. Use `permanent=true` to permanently delete the document.\n"
+        },
+        {
+          "info": {
+            "name": "Move document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/documents/:id/move",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Document ID (UUID)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Move a document to a different collection or parent document. The document and all of its\nchildren will be moved to the target collection. Any existing pins from the source collection\nare automatically removed.\n"
+        },
+        {
+          "info": {
+            "name": "Search documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/documents/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search documents using semantic search. Returns relevant documents matching the query with relevance scores.\n"
+        },
+        {
+          "info": {
+            "name": "Generate article suggestions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/documents/suggestion",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Triggers the Brainfish Knowledge Discovery Agent to analyze article content and generate \nsuggestions for improving the content. Processing happens asynchronously.\n\nThe agent will analyze the provided content and create suggestions for human review. \nResults will be synced back to the platform when processing is complete:\n- **New document drafts**: If `new_article` is true, the agent will create new article drafts\n- **Article suggestions**: If `new_article` is false, the agent will suggest updat"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

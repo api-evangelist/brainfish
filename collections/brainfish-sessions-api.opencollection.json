@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brainfish Public Agents Sessions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search chat sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/sessions/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search chat sessions (conversations) by query text, filters, and date range.\nReturns one result per conversation, folded by conversationId.\nA \"session\" in this context means a chat conversation (one or more user turns with the AI agent).\n"
+        },
+        {
+          "info": {
+            "name": "Get session detail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.brainfi.sh/v1/sessions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Conversation ID or search query ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch full conversation detail for a chat session: all turns (user query, AI answer, feedback)\nplus analytics metadata (session start time, start URL, linked search query IDs).\nAccepts a conversationId or searchQueryId.\n"
+        },
+        {
+          "info": {
+            "name": "Get session event timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.brainfi.sh/v1/sessions/:id/timeline",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Conversation ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeSessionContext",
+                "value": "",
+                "type": "query",
+                "description": "Include session-level events (screen views, widget open/close)"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "eventNames",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated event name(s) to filter by (e.g. \"screen_view,Primary Field Search Submitted\")"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated country code(s) (e.g. \"US,CA\")"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated city name(s)"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated region/state name(s)"
+              },
+              {
+                "name": "os",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated OS name(s) (e.g. \"Mac OS,Windows\")"
+              },
+              {
+                "name": "browser",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated browser name(s) (e.g. \"Chrome,Safari\")"
+              },
+              {
+                "name": "device",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated device type(s) (e.g. \"desktop,mobile\")"
+              },
+              {
+                "name": "referrerType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated referrer type(s) (e.g. \"search,social,direct\")"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch the chronological analytics event timeline for a conversation. Includes page views,\nwidget interactions, search events, and chat turns with their properties map.\nThe timeline is proxied from the analytic-service.\n"
+        },
+        {
+          "info": {
+            "name": "Generate session insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.brainfi.sh/v1/sessions/:id/insights",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Conversation ID or search query ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a structured LLM-powered diagnosis of a chat session: root cause analysis,\nseverity, evidence, and actionable recommendations. Results are cached server-side for 24 hours.\nUse force=true to regenerate.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

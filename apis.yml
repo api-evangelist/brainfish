@@ -35,6 +35,15 @@ modified: '2026-07-18'
 image: https://www.brainfishai.com/og-default.png
 tags:
 - Company
+- Artificial Intelligence
+- Customer-Support
+- Knowledge Base
+- Help Desk
+- Agents
+- Support Automation
+- Software-as-a-Service
+tags_raw:
+- Company
 - AI
 - Customer Support
 - Knowledge Base
@@ -191,6 +200,8 @@ apis:
   humanURL: https://docs.brainfi.sh/api-reference
   baseURL: https://api.brainfi.sh
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -331,6 +342,8 @@ apis:
   humanURL: https://docs.brainfi.sh/api-reference
   baseURL: https://api.brainfi.sh
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI

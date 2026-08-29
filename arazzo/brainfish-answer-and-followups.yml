@@ -4,31 +4,34 @@ info:
   version: 1.0.0
   summary: Generate a cited AI answer for an end-user question, then generate suggested follow-up questions.
 sourceDescriptions:
-  - name: brainfish
-    url: ../openapi/brainfish-public-api-openapi-original.json
-    type: openapi
+- name: conversationsApi
+  url: ../openapi/brainfish-conversations-api-openapi.yml
+  type: openapi
+- name: usersApi
+  url: ../openapi/brainfish-users-api-openapi.yml
+  type: openapi
 workflows:
-  - workflowId: answer-and-followups
-    summary: Answer a user question, then produce follow-up questions.
-    inputs:
-      type: object
-      properties:
-        question: { type: string }
-        conversationId: { type: string }
-    steps:
-      - stepId: answer
-        operationId: generateUserAnswer
-        requestBody:
-          contentType: application/json
-          payload:
-            question: $inputs.question
-        successCriteria:
-          - condition: $statusCode == 200
-      - stepId: followUps
-        operationId: generateFollowUpQuestions
-        parameters:
-          - name: conversationId
-            in: path
-            value: $inputs.conversationId
-        successCriteria:
-          - condition: $statusCode == 200
+- workflowId: answer-and-followups
+  summary: Answer a user question, then produce follow-up questions.
+  inputs:
+    type: object
+    properties:
+      question: {type: string}
+      conversationId: {type: string}
+  steps:
+  - stepId: answer
+    operationId: generateUserAnswer
+    requestBody:
+      contentType: application/json
+      payload:
+        question: $inputs.question
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: followUps
+    operationId: generateFollowUpQuestions
+    parameters:
+    - name: conversationId
+      in: path
+      value: $inputs.conversationId
+    successCriteria:
+    - condition: $statusCode == 200

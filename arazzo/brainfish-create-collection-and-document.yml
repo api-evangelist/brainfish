@@ -4,45 +4,51 @@ info:
   version: 1.0.0
   summary: Validate the token, create a knowledge-base collection, then create a document inside it.
 sourceDescriptions:
-  - name: brainfish
-    url: ../openapi/brainfish-public-api-openapi-original.json
-    type: openapi
+- name: authenticationApi
+  url: ../openapi/brainfish-authentication-api-openapi.yml
+  type: openapi
+- name: collectionsApi
+  url: ../openapi/brainfish-collections-api-openapi.yml
+  type: openapi
+- name: documentsApi
+  url: ../openapi/brainfish-documents-api-openapi.yml
+  type: openapi
 workflows:
-  - workflowId: create-collection-and-document
-    summary: Create a collection and a document within it.
-    inputs:
-      type: object
-      properties:
-        collectionName: { type: string }
-        documentTitle: { type: string }
-        documentContent: { type: string }
-    steps:
-      - stepId: validate
-        operationId: validateToken
-        successCriteria:
-          - condition: $statusCode == 200
-      - stepId: createCollection
-        operationId: createCollection
-        requestBody:
-          contentType: application/json
-          payload:
-            name: $inputs.collectionName
-        successCriteria:
-          - condition: $statusCode == 200
-        outputs:
-          collectionId: $response.body#/id
-      - stepId: createDocument
-        operationId: createDocument
-        requestBody:
-          contentType: application/json
-          payload:
-            title: $inputs.documentTitle
-            content: $inputs.documentContent
-            collectionId: $steps.createCollection.outputs.collectionId
-        successCriteria:
-          - condition: $statusCode == 200
-        outputs:
-          documentId: $response.body#/id
+- workflowId: create-collection-and-document
+  summary: Create a collection and a document within it.
+  inputs:
+    type: object
+    properties:
+      collectionName: {type: string}
+      documentTitle: {type: string}
+      documentContent: {type: string}
+  steps:
+  - stepId: validate
+    operationId: validateToken
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: createCollection
+    operationId: createCollection
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.collectionName
+    successCriteria:
+    - condition: $statusCode == 200
     outputs:
-      collectionId: $steps.createCollection.outputs.collectionId
-      documentId: $steps.createDocument.outputs.documentId
+      collectionId: $response.body#/id
+  - stepId: createDocument
+    operationId: createDocument
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.documentTitle
+        content: $inputs.documentContent
+        collectionId: $steps.createCollection.outputs.collectionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentId: $response.body#/id
+  outputs:
+    collectionId: $steps.createCollection.outputs.collectionId
+    documentId: $steps.createDocument.outputs.documentId

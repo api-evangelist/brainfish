@@ -4,47 +4,47 @@ info:
   version: 1.0.0
   summary: Create a catalog, sync content into it, then read back its status.
 sourceDescriptions:
-  - name: brainfish
-    url: ../openapi/brainfish-public-api-openapi-original.json
-    type: openapi
+- name: catalogsApi
+  url: ../openapi/brainfish-catalogs-api-openapi.yml
+  type: openapi
 workflows:
-  - workflowId: catalog-sync
-    summary: Create a catalog, sync content, and verify.
-    inputs:
-      type: object
-      properties:
-        catalogName: { type: string }
-        content: { type: string }
-    steps:
-      - stepId: createCatalog
-        operationId: createCatalog
-        requestBody:
-          contentType: application/json
-          payload:
-            name: $inputs.catalogName
-        successCriteria:
-          - condition: $statusCode == 200
-        outputs:
-          catalogId: $response.body#/id
-      - stepId: syncContent
-        operationId: syncCatalogContent
-        parameters:
-          - name: id
-            in: path
-            value: $steps.createCatalog.outputs.catalogId
-        requestBody:
-          contentType: application/json
-          payload:
-            content: $inputs.content
-        successCriteria:
-          - condition: $statusCode == 200
-      - stepId: verify
-        operationId: getCatalog
-        parameters:
-          - name: id
-            in: path
-            value: $steps.createCatalog.outputs.catalogId
-        successCriteria:
-          - condition: $statusCode == 200
+- workflowId: catalog-sync
+  summary: Create a catalog, sync content, and verify.
+  inputs:
+    type: object
+    properties:
+      catalogName: {type: string}
+      content: {type: string}
+  steps:
+  - stepId: createCatalog
+    operationId: createCatalog
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.catalogName
+    successCriteria:
+    - condition: $statusCode == 200
     outputs:
-      catalogId: $steps.createCatalog.outputs.catalogId
+      catalogId: $response.body#/id
+  - stepId: syncContent
+    operationId: syncCatalogContent
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createCatalog.outputs.catalogId
+    requestBody:
+      contentType: application/json
+      payload:
+        content: $inputs.content
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: verify
+    operationId: getCatalog
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createCatalog.outputs.catalogId
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    catalogId: $steps.createCatalog.outputs.catalogId

@@ -180,6 +180,8 @@ apis:
   humanURL: https://docs.brainfi.sh/api-reference
   baseURL: https://api.brainfi.sh
   tags:
+  - Catalog
+  tags_raw:
   - Catalogs
   properties:
   - type: OpenAPI

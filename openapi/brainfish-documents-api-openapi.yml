@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Brainfish Public Agents Documents API
-  description: "The Brainfish API is organized around REST. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.\n\nUse the Brainfish API to programmatically manage your knowledge base, generate AI-powered answers, and integrate Brainfish capabilities into your applications.\n\n---\n\n## Just Getting Started?\n\nCheck out our [Help documentation](https://help.brainfi.sh) for guides and tutorials.\n\n---\n\n## Base URL\n\n```\nhttps://api.brainfi.sh\n```\n\nAll API requests must be made over HTTPS. Calls made over plain HTTP will fail.\n\n---\n\n## Authentication\n\nThe Brainfish API uses API tokens to authenticate requests. You can view and manage your API tokens in your [Brainfish Dashboard](https://app.brainfi.sh) under **Settings → API Tokens**.\n\nAPI tokens have the prefix `bf_api_`. Your API tokens carry many privileges, so be sure to keep them secure! Do not share your API tokens in publicly accessible areas such as GitHub, client-side code, and so forth.\n\nAll API requests must include authentication. Requests without authentication will fail.\n\n| Header | Description |\n|--------|-------------|\n| `Authorization` | Bearer token authentication: `Bearer bf_api_xxxxx` |\n| `agent-key` | Required for AI Agent endpoints only. Find this in your Agents page. |\n\n**Example: Authenticated Request**\n\n```bash\ncurl https://api.brainfi.sh/v1/auth/validate \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"Content-Type: application/json\"\n```\n\n---\n\n## Errors\n\nBrainfish uses conventional HTTP response codes to indicate the success or failure of an API request.\n\n| Code | Description |\n|------|-------------|\n| `2xx` | Success — The request was successful. |\n| `4xx` | Client Error — The request failed due to client-side issues (e.g., missing required parameter, invalid authentication, resource not found). |\n| `5xx` | Server Error — Something went wrong on Brainfish's servers (these are rare). |\n\n**Error Response Format**\n\n```json\n{\n  \"error\": \"validation_failed\",\n  \"message\": \"Request validation failed\",\n  \"validationErrors\": [\n    {\n      \"field\": \"query\",\n      \"message\": \"Query cannot be empty\",\n      \"code\": \"invalid_string\"\n    }\n  ],\n  \"timestamp\": \"2024-01-15T10:30:00Z\",\n  \"requestId\": \"req-abc123\"\n}\n```\n\nThe `requestId` can be provided to Brainfish support when troubleshooting issues.\n\n---\n\n## Rate Limiting\n\nThe API implements rate limiting to ensure fair usage and system stability.\n\n| Endpoint Type | Limit |\n|---------------|-------|\n| Most endpoints | 25 requests per minute |\n| Token revocation | 10 requests per hour |\n\nWhen you exceed the rate limit, the API returns a `429 Too Many Requests` response with headers indicating when you can retry:\n\n- `X-RateLimit-Limit`: Maximum requests allowed in the window\n- `X-RateLimit-Remaining`: Remaining requests in current window\n- `X-RateLimit-Reset`: Unix timestamp when the rate limit resets\n\n---\n\n## Available Resources\n\n| Resource | Description |\n|----------|-------------|\n| **Authentication** | Validate and revoke API tokens |\n| **AI Agents** | Generate streaming AI-powered answers from your knowledge base |\n| **Analytics** | Query conversation thread analytics with filtering and pagination |\n| **Conversations** | Generate follow-up questions for conversations |\n| **Collections** | Organize documents into collections |\n| **Catalogs** | Create catalogs and sync content via API |\n| **Documents** | Create, read, update, and delete documents |\n\n---\n\n## Quick Start\n\n**1. Create an API token** in your Brainfish dashboard under Settings → API Tokens.\n\n**2. Validate your token** to ensure it's working:\n\n```bash\ncurl https://api.brainfi.sh/v1/auth/validate \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"Content-Type: application/json\"\n```\n\n**3. For AI endpoints**, get your agent key from the Agents page.\n\n**4. Generate an AI answer**:\n\n```bash\ncurl https://api.brainfi.sh/v1/agents/answer \\\n  -X POST \\\n  -H \"Authorization: Bearer bf_api_xxxxx\" \\\n  -H \"agent-key: your-agent-key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"How do I reset my password?\"}'\n```\n\n---\n\n## Pagination\n\nList endpoints support pagination using `limit` and `offset` parameters:\n\n| Parameter | Description | Default |\n|-----------|-------------|---------|\n| `limit` | Maximum number of results to return (1-100) | 25 |\n| `offset` | Number of results to skip | 0 |\n\nPaginated responses include a `pagination` object:\n\n```json\n{\n  \"data\": [...],\n  \"pagination\": {\n    \"offset\": 0,\n    \"limit\": 25,\n    \"total\": 42\n  }\n}\n```\n"
+  title: Brainfish Public Documents API
+  description: The Brainfish API is organized around REST.
   version: 1.0.0
   contact:
     name: Brainfish API Support
@@ -19,9 +19,7 @@ paths:
   /v1/documents:
     get:
       summary: List documents
-      description: 'List documents with optional filtering and pagination. Returns documents the authenticated user has access to.
-
-        '
+      description: List documents with optional filtering and pagination. Returns documents the authenticated user has access to.
       operationId: listDocuments
       tags:
       - Documents
@@ -38,9 +36,10 @@ paths:
         in: query
         description: Filter by parent document ID. Use 'null' to get root-level documents.
         schema:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
       - name: template
         in: query
         description: Filter by template status
@@ -124,9 +123,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
     post:
       summary: Create document
-      description: 'Create a new document. You can create a published document or a draft by setting the `publish` flag.
-
-        '
+      description: Create a new document. You can create a published document or a draft by setting the `publish` flag.
       operationId: createDocument
       tags:
       - Documents
@@ -196,9 +193,7 @@ paths:
   /v1/documents/{id}:
     get:
       summary: Get document
-      description: 'Retrieve a document by its ID or URL ID.
-
-        '
+      description: Retrieve a document by its ID or URL ID.
       operationId: getDocument
       tags:
       - Documents
@@ -255,9 +250,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
     put:
       summary: Update document
-      description: 'Update an existing document. Only provided fields will be updated.
-
-        '
+      description: Update an existing document. Only provided fields will be updated.
       operationId: updateDocument
       tags:
       - Documents
@@ -324,9 +317,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
     delete:
       summary: Delete document
-      description: 'Delete a document. By default, the document is soft-deleted and can be restored. Use `permanent=true` to permanently delete the document.
-
-        '
+      description: Delete a document. By default, the document is soft-deleted and can be restored. Use `permanent=true` to permanently delete the document.
       operationId: deleteDocument
       tags:
       - Documents
@@ -383,9 +374,7 @@ paths:
 
         children will be moved to the target collection. Any existing pins from the source collection
 
-        are automatically removed.
-
-        '
+        are automatically removed.'
       operationId: moveDocument
       tags:
       - Documents
@@ -451,9 +440,7 @@ paths:
   /v1/documents/search:
     post:
       summary: Search documents
-      description: 'Search documents using semantic search. Returns relevant documents matching the query with relevance scores.
-
-        '
+      description: Search documents using semantic search. Returns relevant documents matching the query with relevance scores.
       operationId: searchDocuments
       tags:
       - Documents
@@ -526,7 +513,31 @@ paths:
   /v1/documents/suggestion:
     post:
       summary: Generate article suggestions
-      description: "Triggers the Brainfish Knowledge Discovery Agent to analyze article content and generate \nsuggestions for improving the content. Processing happens asynchronously.\n\nThe agent will analyze the provided content and create suggestions for human review. \nResults will be synced back to the platform when processing is complete:\n- **New document drafts**: If `new_article` is true, the agent will create new article drafts\n- **Article suggestions**: If `new_article` is false, the agent will suggest updates to existing documents\n\nAll suggestions require human review before being published.\n\n**Duplicate Request Prevention**: Requests with identical `content` are \ncached for 5 minutes to prevent duplicate processing. If you submit the same content \nwithin this window, a 409 Conflict response will be returned.\n\nUse the returned `task_id` to track the processing status.\n"
+      description: 'Triggers the Brainfish Knowledge Discovery Agent to analyze article content and generate
+
+        suggestions for improving the content. Processing happens asynchronously.
+
+
+        The agent will analyze the provided content and create suggestions for human review.
+
+        Results will be synced back to the platform when processing is complete:
+
+        - **New document drafts**: If `new_article` is true, the agent will create new article drafts
+
+        - **Article suggestions**: If `new_article` is false, the agent will suggest updates to existing documents
+
+
+        All suggestions require human review before being published.
+
+
+        **Duplicate Request Prevention**: Requests with identical `content` are
+
+        cached for 5 minutes to prevent duplicate processing. If you submit the same content
+
+        within this window, a 409 Conflict response will be returned.
+
+
+        Use the returned `task_id` to track the processing status.'
       operationId: generateArticleSuggestion
       tags:
       - Documents
@@ -593,22 +604,59 @@ components:
           format: uuid
           description: Target collection ID to move the document into
         parentDocumentId:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
           description: Optional parent document ID within the target collection
         index:
           type: integer
           minimum: 0
           description: Position index among siblings (0-based). If omitted, the document is placed at the end.
-    DocumentResponse:
+    DeleteDocumentResponse:
+      type: object
+      required:
+      - success
+      - timestamp
+      properties:
+        success:
+          type: boolean
+          description: Whether the deletion was successful
+          example: true
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    DocumentListResponse:
       type: object
       required:
       - data
+      - pagination
       - timestamp
       properties:
         data:
-          $ref: '#/components/schemas/DocumentDetail'
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
+        pagination:
+          type: object
+          required:
+          - offset
+          - limit
+          - total
+          properties:
+            offset:
+              type: integer
+              description: Current offset
+              example: 0
+            limit:
+              type: integer
+              description: Maximum results per page
+              example: 25
+            total:
+              type: integer
+              description: Total number of results
+              example: 42
         timestamp:
           type: string
           format: date-time
@@ -640,18 +688,6 @@ components:
         siteEnabled:
           type: boolean
           description: Whether the document should be public on the site
-    UserSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          description: User ID
-        name:
-          type: string
-          description: User's full name
-        avatarUrl:
-          type: string
-          description: User's avatar URL
     MoveDocumentResponse:
       type: object
       required:
@@ -674,55 +710,6 @@ components:
               items:
                 $ref: '#/components/schemas/CollectionListItem'
               description: The source and/or target collections affected by the move
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
-    GenerateArticleSuggestionResponse:
-      type: object
-      required:
-      - data
-      - message
-      - timestamp
-      properties:
-        data:
-          type: object
-          properties:
-            task_id:
-              type: string
-              description: Unique identifier for the processing task
-              example: task-abc123
-            status:
-              type: string
-              description: Current status of the task
-              example: processing
-        message:
-          type: string
-          description: Human-readable status message
-          example: Article suggestion generation has been triggered. Results will be synced when processing is complete.
         timestamp:
           type: string
           format: date-time
@@ -762,6 +749,45 @@ components:
           type: string
           format: date-time
           description: Response timestamp
+    CreateDocumentRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Document title
+          default: ''
+          example: Getting Started Guide
+        text:
+          type: string
+          description: Document content in Markdown format
+          default: ''
+          example: '# Introduction
+
+
+            Welcome to our platform...'
+        collectionId:
+          type: string
+          format: uuid
+          description: Collection ID to create the document in
+          example: 123e4567-e89b-12d3-a456-426614174000
+        parentDocumentId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Parent document ID for nested documents
+        publish:
+          type: boolean
+          description: Whether to publish the document immediately
+          example: true
+        template:
+          type: boolean
+          description: Whether this document is a template
+          example: false
+        templateId:
+          type: string
+          format: uuid
+          description: Template ID to use for creating the document
     DocumentListItem:
       type: object
       description: Simplified document representation for list endpoints
@@ -812,8 +838,9 @@ components:
           format: date-time
           description: Creation timestamp
         createdBy:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ID of the user who created the document
           example: user-123
         updatedAt:
@@ -821,24 +848,28 @@ components:
           format: date-time
           description: Last update timestamp
         updatedBy:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ID of the user who last updated the document
           example: user-123
         publishedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Publication timestamp
         archivedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Archive timestamp
         deletedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Deletion timestamp
         teamId:
           type: string
@@ -879,40 +910,41 @@ components:
                 code:
                   type: string
                   description: Validation error code
-    DocumentListResponse:
+    UserSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: User ID
+        name:
+          type: string
+          description: User's full name
+        avatarUrl:
+          type: string
+          description: User's avatar URL
+    GenerateArticleSuggestionRequest:
       type: object
       required:
-      - data
-      - pagination
-      - timestamp
+      - content
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentListItem'
-        pagination:
-          type: object
-          required:
-          - offset
-          - limit
-          - total
-          properties:
-            offset:
-              type: integer
-              description: Current offset
-              example: 0
-            limit:
-              type: integer
-              description: Maximum results per page
-              example: 25
-            total:
-              type: integer
-              description: Total number of results
-              example: 42
-        timestamp:
+        content:
           type: string
-          format: date-time
-          description: Response timestamp
+          minLength: 1
+          description: Full article content in Markdown format
+          example: '# Introduction
+
+
+            Welcome to our platform. This guide will help you get started...'
+        collection_id:
+          type: string
+          format: uuid
+          description: Optional collection ID where new documents will be created
+          example: 123e4567-e89b-12d3-a456-426614174000
+        new_article:
+          type: boolean
+          default: false
+          description: Whether to create a new article (true) or suggest updates to existing documents (false)
+          example: false
     DocumentDetail:
       type: object
       description: Full document representation with text content
@@ -971,8 +1003,9 @@ components:
           format: date-time
           description: Creation timestamp
         createdBy:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ID of the user who created the document
           example: user-123
         updatedAt:
@@ -980,24 +1013,28 @@ components:
           format: date-time
           description: Last update timestamp
         updatedBy:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ID of the user who last updated the document
           example: user-123
         publishedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Publication timestamp
         archivedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Archive timestamp
         deletedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Deletion timestamp
         teamId:
           type: string
@@ -1008,9 +1045,10 @@ components:
           format: uuid
           description: Collection ID the document belongs to
         parentDocumentId:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
           description: Parent document ID if nested
         revision:
           type: integer
@@ -1024,6 +1062,143 @@ components:
           type: boolean
           description: Whether the document has a pending suggestion awaiting review
           example: false
+    GenerateArticleSuggestionResponse:
+      type: object
+      required:
+      - data
+      - message
+      - timestamp
+      properties:
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: Unique identifier for the processing task
+              example: task-abc123
+            status:
+              type: string
+              description: Current status of the task
+              example: processing
+        message:
+          type: string
+          description: Human-readable status message
+          example: Article suggestion generation has been triggered. Results will be synced when processing is complete.
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
+    DocumentResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          $ref: '#/components/schemas/DocumentDetail'
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Document ID
+          example: doc-123
+        title:
+          type: string
+          description: Document title
+          example: Password Reset Guide
+        score:
+          type: number
+          description: Relevance score (0-1)
+          example: 0.95
+        percent:
+          type: integer
+          description: Relevance score as percentage (0-100)
+          example: 95
+        chunk:
+          type: string
+          description: Relevant text snippet from the document
+          example: To reset your password, navigate to the login page...
+        url:
+          type: string
+          description: Document URL path
+          example: /doc/password-reset-guide-abc123
+        collectionId:
+          type: string
+          format: uuid
+          description: Collection ID the document belongs to
+        isPublic:
+          type: boolean
+          description: Whether the document is publicly accessible
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    SearchDocumentsRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: Search query string
+          minLength: 1
+          example: How do I reset my password?
+        collectionId:
+          type: string
+          format: uuid
+          description: Filter by collection ID
+        collectionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Filter by multiple collection IDs
+        dateFilter:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+          - year
+          description: Filter by date range
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 25
+          default: 10
+          description: Maximum number of results to return (semantic search does not support offset-based pagination)
+        cmsOnly:
+          type: boolean
+          default: false
+          description: Only include CMS documents (exclude external catalog content like Confluence, Notion, etc.)
     Document:
       type: object
       required:
@@ -1067,17 +1242,19 @@ components:
           format: uuid
           description: Collection ID the document belongs to
         parentDocumentId:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
           description: Parent document ID if nested
         template:
           type: boolean
           description: Whether this is a template document
         templateId:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
           description: Template ID used to create this document
         fullWidth:
           type: boolean
@@ -1098,187 +1275,28 @@ components:
           format: date-time
           description: Last update timestamp
         publishedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Publication timestamp
         archivedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Archive timestamp
         deletedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Deletion timestamp
         createdBy:
           $ref: '#/components/schemas/UserSummary'
         updatedBy:
           $ref: '#/components/schemas/UserSummary'
-    SearchDocumentsRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: Search query string
-          minLength: 1
-          example: How do I reset my password?
-        collectionId:
-          type: string
-          format: uuid
-          description: Filter by collection ID
-        collectionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: Filter by multiple collection IDs
-        dateFilter:
-          type: string
-          enum:
-          - day
-          - week
-          - month
-          - year
-          description: Filter by date range
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 25
-          default: 10
-          description: Maximum number of results to return (semantic search does not support offset-based pagination)
-        cmsOnly:
-          type: boolean
-          default: false
-          description: Only include CMS documents (exclude external catalog content like Confluence, Notion, etc.)
-    CreateDocumentRequest:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Document title
-          default: ''
-          example: Getting Started Guide
-        text:
-          type: string
-          description: Document content in Markdown format
-          default: ''
-          example: '# Introduction
-
-
-            Welcome to our platform...'
-        collectionId:
-          type: string
-          format: uuid
-          description: Collection ID to create the document in
-          example: 123e4567-e89b-12d3-a456-426614174000
-        parentDocumentId:
-          type: string
-          format: uuid
-          nullable: true
-          description: Parent document ID for nested documents
-        publish:
-          type: boolean
-          description: Whether to publish the document immediately
-          example: true
-        template:
-          type: boolean
-          description: Whether this document is a template
-          example: false
-        templateId:
-          type: string
-          format: uuid
-          description: Template ID to use for creating the document
-    DeleteDocumentResponse:
-      type: object
-      required:
-      - success
-      - timestamp
-      properties:
-        success:
-          type: boolean
-          description: Whether the deletion was successful
-          example: true
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    GenerateArticleSuggestionRequest:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          minLength: 1
-          description: Full article content in Markdown format
-          example: '# Introduction
-
-
-            Welcome to our platform. This guide will help you get started...'
-        collection_id:
-          type: string
-          format: uuid
-          description: Optional collection ID where new documents will be created
-          example: 123e4567-e89b-12d3-a456-426614174000
-        new_article:
-          type: boolean
-          default: false
-          description: Whether to create a new article (true) or suggest updates to existing documents (false)
-          example: false
-    SearchResult:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Document ID
-          example: doc-123
-        title:
-          type: string
-          description: Document title
-          example: Password Reset Guide
-        score:
-          type: number
-          description: Relevance score (0-1)
-          example: 0.95
-        percent:
-          type: integer
-          description: Relevance score as percentage (0-100)
-          example: 95
-        chunk:
-          type: string
-          description: Relevant text snippet from the document
-          example: To reset your password, navigate to the login page...
-        url:
-          type: string
-          description: Document URL path
-          example: /doc/password-reset-guide-abc123
-        collectionId:
-          type: string
-          format: uuid
-          description: Collection ID the document belongs to
-        isPublic:
-          type: boolean
-          description: Whether the document is publicly accessible
-        lastUpdated:
-          type: string
-          format: date-time
-          description: Last update timestamp
   responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: internal_error
-            message: An unexpected error occurred
-            requestId: req-abc123
-            timestamp: '2024-01-15T10:30:00Z'
     Unauthorized:
       description: Authentication required or invalid credentials
       content:
@@ -1318,6 +1336,17 @@ components:
             message: Document not found
             timestamp: '2024-01-15T10:30:00Z'
             requestId: req-notfound123
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internal_error
+            message: An unexpected error occurred
+            requestId: req-abc123
+            timestamp: '2024-01-15T10:30:00Z'
     UnprocessableEntity:
       description: Invalid request format or unknown message type
       content:

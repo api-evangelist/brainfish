@@ -99,6 +99,17 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internal_error
+            message: An unexpected error occurred
+            requestId: req-abc123
+            timestamp: '2024-01-15T10:30:00Z'
     Unauthorized:
       description: Authentication required or invalid credentials
       content:
@@ -127,17 +138,6 @@ components:
                 message: Invalid or missing authentication credentials
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-ghi789
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: internal_error
-            message: An unexpected error occurred
-            requestId: req-abc123
-            timestamp: '2024-01-15T10:30:00Z'
     TooManyRequests:
       description: Rate limit exceeded
       headers:

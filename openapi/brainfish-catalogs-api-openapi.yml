@@ -291,6 +291,212 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    Catalog:
+      type: object
+      required:
+      - id
+      - name
+      - source
+      - status
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique catalog identifier
+          example: cat-123
+        teamId:
+          type: string
+          format: uuid
+          description: Team ID the catalog belongs to
+        name:
+          type: string
+          description: Catalog name
+          example: Developer Documentation
+        source:
+          type: string
+          description: Catalog source type
+          example: external
+        status:
+          type: string
+          enum:
+          - inprogress
+          - completed
+          - failed
+          description: Current sync status
+          example: completed
+        enabled:
+          type: boolean
+          description: Whether the catalog is enabled
+          example: true
+        dailySync:
+          type: boolean
+          description: Whether daily sync is enabled
+          example: false
+        configurations:
+          type: object
+          additionalProperties: true
+          description: Source-specific configuration (API keys are masked)
+        createdBy:
+          type: string
+          format: uuid
+          description: ID of the user who created the catalog
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        lastSyncError:
+          type:
+          - string
+          - 'null'
+          description: Last sync error message, if any
+    ValidationError:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          validationErrors:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                  description: Field that failed validation
+                message:
+                  type: string
+                  description: Validation error message
+                code:
+                  type: string
+                  description: Validation error code
+    CatalogWithCount:
+      allOf:
+      - $ref: '#/components/schemas/Catalog'
+      - type: object
+        properties:
+          contentCount:
+            type: integer
+            description: Number of content entries in the catalog
+            example: 42
+    SyncCatalogContentRequest:
+      type: object
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          minItems: 1
+          description: Content files to sync
+          items:
+            type: object
+            required:
+            - url
+            - content
+            - title
+            properties:
+              url:
+                type: string
+                minLength: 1
+                description: URL or path used as unique identifier within the catalog
+                example: https://docs.acme.com/getting-started
+              content:
+                type: string
+                description: File content (Markdown, MDX, plain text, etc.)
+                example: '# Getting Started
+
+
+                  Welcome to our docs...'
+              title:
+                type: string
+                minLength: 1
+                description: Content title
+                example: Getting Started
+    CatalogResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          $ref: '#/components/schemas/Catalog'
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    CreateCatalogRequest:
+      type: object
+      required:
+      - name
+      - source
+      properties:
+        name:
+          type: string
+          description: Catalog name
+          minLength: 1
+          maxLength: 255
+          example: Developer Documentation
+        source:
+          type: string
+          description: Catalog source type
+          enum:
+          - cms
+          - website
+          - zendesk
+          - github
+          - discovery
+          - helpscout
+          - readme
+          - readmev2
+          - oas
+          - notion
+          - intercom
+          - freshdesk
+          - helpjuice
+          - googledrive
+          - confluence
+          - guru
+          - external
+          example: external
+        slug:
+          type: string
+          description: Unique slug for this catalog (used as an external identifier)
+          minLength: 1
+          maxLength: 100
+          example: dev-docs
+        configurations:
+          type: object
+          additionalProperties: true
+          description: Optional source-specific configuration
+    SyncCatalogContentResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CatalogWithCount'
+          - type: object
+            properties:
+              created:
+                type: integer
+                description: Number of new content entries created
+                example: 2
+              updated:
+                type: integer
+                description: Number of existing content entries updated
+                example: 1
+              removed:
+                type: integer
+                description: Number of stale content entries removed
+                example: 0
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
     CatalogListResponse:
       type: object
       required:
@@ -357,213 +563,18 @@ components:
           type: string
           format: date-time
           description: Response timestamp
-    Catalog:
-      type: object
-      required:
-      - id
-      - name
-      - source
-      - status
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique catalog identifier
-          example: cat-123
-        teamId:
-          type: string
-          format: uuid
-          description: Team ID the catalog belongs to
-        name:
-          type: string
-          description: Catalog name
-          example: Developer Documentation
-        source:
-          type: string
-          description: Catalog source type
-          example: external
-        status:
-          type: string
-          enum:
-          - inprogress
-          - completed
-          - failed
-          description: Current sync status
-          example: completed
-        enabled:
-          type: boolean
-          description: Whether the catalog is enabled
-          example: true
-        dailySync:
-          type: boolean
-          description: Whether daily sync is enabled
-          example: false
-        configurations:
-          type: object
-          additionalProperties: true
-          description: Source-specific configuration (API keys are masked)
-        createdBy:
-          type: string
-          format: uuid
-          description: ID of the user who created the catalog
-        createdAt:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updatedAt:
-          type: string
-          format: date-time
-          description: Last update timestamp
-        lastSyncError:
-          type:
-          - string
-          - 'null'
-          description: Last sync error message, if any
-    CreateCatalogRequest:
-      type: object
-      required:
-      - name
-      - source
-      properties:
-        name:
-          type: string
-          description: Catalog name
-          minLength: 1
-          maxLength: 255
-          example: Developer Documentation
-        source:
-          type: string
-          description: Catalog source type
-          enum:
-          - cms
-          - website
-          - zendesk
-          - github
-          - discovery
-          - helpscout
-          - readme
-          - readmev2
-          - oas
-          - notion
-          - intercom
-          - freshdesk
-          - helpjuice
-          - googledrive
-          - confluence
-          - guru
-          - external
-          example: external
-        slug:
-          type: string
-          description: Unique slug for this catalog (used as an external identifier)
-          minLength: 1
-          maxLength: 100
-          example: dev-docs
-        configurations:
-          type: object
-          additionalProperties: true
-          description: Optional source-specific configuration
-    CatalogResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          $ref: '#/components/schemas/Catalog'
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    ValidationError:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          validationErrors:
-            type: array
-            items:
-              type: object
-              properties:
-                field:
-                  type: string
-                  description: Field that failed validation
-                message:
-                  type: string
-                  description: Validation error message
-                code:
-                  type: string
-                  description: Validation error code
-    SyncCatalogContentRequest:
-      type: object
-      required:
-      - files
-      properties:
-        files:
-          type: array
-          minItems: 1
-          description: Content files to sync
-          items:
-            type: object
-            required:
-            - url
-            - content
-            - title
-            properties:
-              url:
-                type: string
-                minLength: 1
-                description: URL or path used as unique identifier within the catalog
-                example: https://docs.acme.com/getting-started
-              content:
-                type: string
-                description: File content (Markdown, MDX, plain text, etc.)
-                example: '# Getting Started
-
-
-                  Welcome to our docs...'
-              title:
-                type: string
-                minLength: 1
-                description: Content title
-                example: Getting Started
-    SyncCatalogContentResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/CatalogWithCount'
-          - type: object
-            properties:
-              created:
-                type: integer
-                description: Number of new content entries created
-                example: 2
-              updated:
-                type: integer
-                description: Number of existing content entries updated
-                example: 1
-              removed:
-                type: integer
-                description: Number of stale content entries removed
-                example: 0
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    CatalogWithCount:
-      allOf:
-      - $ref: '#/components/schemas/Catalog'
-      - type: object
-        properties:
-          contentCount:
-            type: integer
-            description: Number of content entries in the catalog
-            example: 42
   responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internal_error
+            message: An unexpected error occurred
+            requestId: req-abc123
+            timestamp: '2024-01-15T10:30:00Z'
     Unauthorized:
       description: Authentication required or invalid credentials
       content:
@@ -592,16 +603,28 @@ components:
                 message: Invalid or missing authentication credentials
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-ghi789
-    InternalServerError:
-      description: Internal server error
+    TooManyRequests:
+      description: Rate limit exceeded
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Request limit per time window
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current window
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Time when rate limit resets (Unix timestamp)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
           example:
-            error: internal_error
-            message: An unexpected error occurred
-            requestId: req-abc123
+            error: rate_limit_exceeded
+            message: 'Too many requests. Rate limit: 25 requests per minute'
             timestamp: '2024-01-15T10:30:00Z'
     UnprocessableEntity:
       description: Invalid request format or unknown message type
@@ -643,29 +666,6 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
-    TooManyRequests:
-      description: Rate limit exceeded
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Request limit per time window
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests in current window
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: Time when rate limit resets (Unix timestamp)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: rate_limit_exceeded
-            message: 'Too many requests. Rate limit: 25 requests per minute'
-            timestamp: '2024-01-15T10:30:00Z'
     NotFound:
       description: Resource not found
       content:

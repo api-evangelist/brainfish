@@ -240,6 +240,25 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    ValidationError:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          validationErrors:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                  description: Field that failed validation
+                message:
+                  type: string
+                  description: Validation error message
+                code:
+                  type: string
+                  description: Validation error code
     AnswerRequest:
       type: object
       required:
@@ -360,26 +379,18 @@ components:
         requestId:
           type: string
           description: Unique request identifier for debugging
-    ValidationError:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          validationErrors:
-            type: array
-            items:
-              type: object
-              properties:
-                field:
-                  type: string
-                  description: Field that failed validation
-                message:
-                  type: string
-                  description: Validation error message
-                code:
-                  type: string
-                  description: Validation error code
   responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internal_error
+            message: An unexpected error occurred
+            requestId: req-abc123
+            timestamp: '2024-01-15T10:30:00Z'
     Unauthorized:
       description: Authentication required or invalid credentials
       content:
@@ -408,16 +419,28 @@ components:
                 message: Invalid or missing authentication credentials
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-ghi789
-    InternalServerError:
-      description: Internal server error
+    TooManyRequests:
+      description: Rate limit exceeded
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Request limit per time window
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current window
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Time when rate limit resets (Unix timestamp)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
           example:
-            error: internal_error
-            message: An unexpected error occurred
-            requestId: req-abc123
+            error: rate_limit_exceeded
+            message: 'Too many requests. Rate limit: 25 requests per minute'
             timestamp: '2024-01-15T10:30:00Z'
     UnprocessableEntity:
       description: Invalid request format or unknown message type
@@ -459,29 +482,6 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
-    TooManyRequests:
-      description: Rate limit exceeded
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Request limit per time window
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests in current window
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: Time when rate limit resets (Unix timestamp)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: rate_limit_exceeded
-            message: 'Too many requests. Rate limit: 25 requests per minute'
-            timestamp: '2024-01-15T10:30:00Z'
   securitySchemes:
     BearerAuth:
       type: http

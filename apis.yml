@@ -50,7 +50,7 @@ image: https://www.brainfishai.com/og-default.png
 tags:
 - Company
 - Artificial Intelligence
-- Customer-Support
+- Customer Support
 - Knowledge Base
 - Help Desk
 - Agents
@@ -65,6 +65,7 @@ tags_raw:
 - Agents
 - Support Automation
 - SaaS
+- Customer-Support
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

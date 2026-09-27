@@ -91,6 +91,17 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internal_error
+            message: An unexpected error occurred
+            requestId: req-abc123
+            timestamp: '2024-01-15T10:30:00Z'
     Unauthorized:
       description: Authentication required or invalid credentials
       content:
@@ -119,17 +130,6 @@ components:
                 message: Invalid or missing authentication credentials
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-ghi789
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: internal_error
-            message: An unexpected error occurred
-            requestId: req-abc123
-            timestamp: '2024-01-15T10:30:00Z'
     TooManyRequests:
       description: Rate limit exceeded
       headers:
@@ -154,49 +154,6 @@ components:
             message: 'Too many requests. Rate limit: 25 requests per minute'
             timestamp: '2024-01-15T10:30:00Z'
   schemas:
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
-    TokenRevokeResponse:
-      type: object
-      required:
-      - success
-      - message
-      - timestamp
-      properties:
-        success:
-          type: boolean
-          description: Indicates if the token was successfully revoked
-          example: true
-        message:
-          type: string
-          description: Confirmation message
-          example: Access token has been revoked successfully
-        timestamp:
-          type: string
-          format: date-time
-          description: Revocation timestamp
-          example: '2024-01-15T10:30:00Z'
     TokenValidationResponse:
       type: object
       required:
@@ -242,6 +199,49 @@ components:
           type: string
           format: date-time
           description: Validation timestamp
+          example: '2024-01-15T10:30:00Z'
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
+    TokenRevokeResponse:
+      type: object
+      required:
+      - success
+      - message
+      - timestamp
+      properties:
+        success:
+          type: boolean
+          description: Indicates if the token was successfully revoked
+          example: true
+        message:
+          type: string
+          description: Confirmation message
+          example: Access token has been revoked successfully
+        timestamp:
+          type: string
+          format: date-time
+          description: Revocation timestamp
           example: '2024-01-15T10:30:00Z'
   securitySchemes:
     BearerAuth:

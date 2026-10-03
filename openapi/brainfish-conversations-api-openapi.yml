@@ -185,15 +185,6 @@ components:
         requestId:
           type: string
           description: Unique request identifier for debugging
-    FollowUpQuestionsRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 10
-          default: 3
-          description: Maximum number of follow-up questions to generate
     FollowUpQuestionsResponse:
       type: object
       required:
@@ -218,6 +209,15 @@ components:
           type: string
           format: date-time
           description: Response timestamp
+    FollowUpQuestionsRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 3
+          description: Maximum number of follow-up questions to generate
   securitySchemes:
     BearerAuth:
       type: http

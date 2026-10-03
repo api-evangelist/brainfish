@@ -109,6 +109,29 @@ components:
                 code:
                   type: string
                   description: Validation error code
+    AnalyticsThreadsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsThread'
+        pagination:
+          type: object
+          properties:
+            total:
+              type: integer
+              description: Total number of matching threads
+            limit:
+              type: integer
+              description: Page size
+            offset:
+              type: integer
+              description: Current offset
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
     AnalyticsThread:
       type: object
       properties:
@@ -154,6 +177,29 @@ components:
           - number
           - 'null'
           description: AI-computed conversation quality score
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
     AnalyticsThreadsRequest:
       type: object
       required:
@@ -216,52 +262,6 @@ components:
           items:
             type: string
           description: Filter by action types
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
-    AnalyticsThreadsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsThread'
-        pagination:
-          type: object
-          properties:
-            total:
-              type: integer
-              description: Total number of matching threads
-            limit:
-              type: integer
-              description: Page size
-            offset:
-              type: integer
-              description: Current offset
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
   responses:
     InternalServerError:
       description: Internal server error

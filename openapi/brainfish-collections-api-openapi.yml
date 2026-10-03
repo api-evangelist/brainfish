@@ -234,56 +234,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ValidationError:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          validationErrors:
-            type: array
-            items:
-              type: object
-              properties:
-                field:
-                  type: string
-                  description: Field that failed validation
-                message:
-                  type: string
-                  description: Validation error message
-                code:
-                  type: string
-                  description: Validation error code
-    CollectionListResponse:
-      type: object
-      required:
-      - data
-      - pagination
-      - timestamp
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Collection'
-        pagination:
-          type: object
-          required:
-          - offset
-          - limit
-          - total
-          properties:
-            offset:
-              type: integer
-              example: 0
-            limit:
-              type: integer
-              example: 25
-            total:
-              type: integer
-              example: 10
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
     UpdateCollectionRequest:
       type: object
       properties:
@@ -315,20 +265,6 @@ components:
         siteEnabled:
           type: boolean
           description: Whether the collection is public on site
-    DeleteCollectionResponse:
-      type: object
-      required:
-      - success
-      - timestamp
-      properties:
-        success:
-          type: boolean
-          description: Whether the deletion was successful
-          example: true
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
     Collection:
       type: object
       required:
@@ -397,29 +333,68 @@ components:
           - 'null'
           format: date-time
           description: Deletion timestamp
-    Error:
+    ValidationError:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          validationErrors:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                  description: Field that failed validation
+                message:
+                  type: string
+                  description: Validation error message
+                code:
+                  type: string
+                  description: Validation error code
+    CollectionListResponse:
       type: object
       required:
-      - error
-      - message
+      - data
+      - pagination
+      - timestamp
       properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Collection'
+        pagination:
           type: object
-          additionalProperties: true
-          description: Additional error details
+          required:
+          - offset
+          - limit
+          - total
+          properties:
+            offset:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 25
+            total:
+              type: integer
+              example: 10
         timestamp:
           type: string
           format: date-time
-          description: Error timestamp
-        requestId:
+          description: Response timestamp
+    CollectionResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          $ref: '#/components/schemas/Collection'
+        timestamp:
           type: string
-          description: Unique request identifier for debugging
+          format: date-time
+          description: Response timestamp
     CreateCollectionRequest:
       type: object
       required:
@@ -455,19 +430,55 @@ components:
         siteEnabled:
           type: boolean
           description: Whether the collection is public on site
-    CollectionResponse:
+    DeleteCollectionResponse:
       type: object
       required:
-      - data
+      - success
       - timestamp
       properties:
-        data:
-          $ref: '#/components/schemas/Collection'
+        success:
+          type: boolean
+          description: Whether the deletion was successful
+          example: true
         timestamp:
           type: string
           format: date-time
           description: Response timestamp
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
   responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: not_found
+            message: Document not found
+            timestamp: '2024-01-15T10:30:00Z'
+            requestId: req-notfound123
     InternalServerError:
       description: Internal server error
       content:
@@ -570,17 +581,6 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: not_found
-            message: Document not found
-            timestamp: '2024-01-15T10:30:00Z'
-            requestId: req-notfound123
   securitySchemes:
     BearerAuth:
       type: http

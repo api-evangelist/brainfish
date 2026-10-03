@@ -594,80 +594,18 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    SearchDocumentsResponse:
+    DocumentResponse:
       type: object
       required:
       - data
-      - pagination
-      - query
       - timestamp
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchResult'
-        pagination:
-          type: object
-          description: Pagination info (note - semantic search does not support offset-based pagination)
-          required:
-          - limit
-          - total
-          properties:
-            limit:
-              type: integer
-              description: Maximum results per page
-              example: 10
-            total:
-              type: integer
-              description: Total number of results
-              example: 15
-        query:
-          type: string
-          description: The processed search query (may be rewritten for better results)
-          example: How do I reset my password?
+          $ref: '#/components/schemas/DocumentDetail'
         timestamp:
           type: string
           format: date-time
           description: Response timestamp
-    UpdateDocumentRequest:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Document title
-          example: Updated Title
-        text:
-          type: string
-          description: Document content in Markdown format
-          example: '# Updated Content
-
-
-            New content here...'
-        publish:
-          type: boolean
-          description: Whether to publish the document
-        fullWidth:
-          type: boolean
-          description: Whether the document should display in full width
-        collectionId:
-          type: string
-          format: uuid
-          description: Collection ID to move the document to
-        siteEnabled:
-          type: boolean
-          description: Whether the document should be public on the site
-    UserSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          description: User ID
-        name:
-          type: string
-          description: User's full name
-        avatarUrl:
-          type: string
-          description: User's avatar URL
     SearchResult:
       type: object
       properties:
@@ -706,63 +644,6 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
-    DocumentListResponse:
-      type: object
-      required:
-      - data
-      - pagination
-      - timestamp
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentListItem'
-        pagination:
-          type: object
-          required:
-          - offset
-          - limit
-          - total
-          properties:
-            offset:
-              type: integer
-              description: Current offset
-              example: 0
-            limit:
-              type: integer
-              description: Maximum results per page
-              example: 25
-            total:
-              type: integer
-              description: Total number of results
-              example: 42
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
     Document:
       type: object
       required:
@@ -860,123 +741,60 @@ components:
           $ref: '#/components/schemas/UserSummary'
         updatedBy:
           $ref: '#/components/schemas/UserSummary'
-    DocumentResponse:
+    SearchDocumentsResponse:
       type: object
       required:
       - data
+      - pagination
+      - query
       - timestamp
       properties:
         data:
-          $ref: '#/components/schemas/DocumentDetail'
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    DeleteDocumentResponse:
-      type: object
-      required:
-      - success
-      - timestamp
-      properties:
-        success:
-          type: boolean
-          description: Whether the deletion was successful
-          example: true
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    GenerateArticleSuggestionResponse:
-      type: object
-      required:
-      - data
-      - message
-      - timestamp
-      properties:
-        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        pagination:
           type: object
-          properties:
-            task_id:
-              type: string
-              description: Unique identifier for the processing task
-              example: task-abc123
-            status:
-              type: string
-              description: Current status of the task
-              example: processing
-        message:
-          type: string
-          description: Human-readable status message
-          example: Article suggestion generation has been triggered. Results will be synced when processing is complete.
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    MoveDocumentResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          type: object
+          description: Pagination info (note - semantic search does not support offset-based pagination)
           required:
-          - documents
-          - collections
+          - limit
+          - total
           properties:
-            documents:
-              type: array
-              items:
-                $ref: '#/components/schemas/Document'
-              description: The moved document and any child documents whose collection changed
-            collections:
-              type: array
-              items:
-                $ref: '#/components/schemas/CollectionListItem'
-              description: The source and/or target collections affected by the move
+            limit:
+              type: integer
+              description: Maximum results per page
+              example: 10
+            total:
+              type: integer
+              description: Total number of results
+              example: 15
+        query:
+          type: string
+          description: The processed search query (may be rewritten for better results)
+          example: How do I reset my password?
         timestamp:
           type: string
           format: date-time
           description: Response timestamp
-    CreateDocumentRequest:
+    MoveDocumentRequest:
       type: object
+      required:
+      - collectionId
       properties:
-        title:
-          type: string
-          description: Document title
-          default: ''
-          example: Getting Started Guide
-        text:
-          type: string
-          description: Document content in Markdown format
-          default: ''
-          example: '# Introduction
-
-
-            Welcome to our platform...'
         collectionId:
           type: string
           format: uuid
-          description: Collection ID to create the document in
-          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Target collection ID to move the document into
         parentDocumentId:
           type:
           - string
           - 'null'
           format: uuid
-          description: Parent document ID for nested documents
-        publish:
-          type: boolean
-          description: Whether to publish the document immediately
-          example: true
-        template:
-          type: boolean
-          description: Whether this document is a template
-          example: false
-        templateId:
-          type: string
-          format: uuid
-          description: Template ID to use for creating the document
+          description: Optional parent document ID within the target collection
+        index:
+          type: integer
+          minimum: 0
+          description: Position index among siblings (0-based). If omitted, the document is placed at the end.
     SearchDocumentsRequest:
       type: object
       required:
@@ -1015,25 +833,187 @@ components:
           type: boolean
           default: false
           description: Only include CMS documents (exclude external catalog content like Confluence, Notion, etc.)
-    MoveDocumentRequest:
+    GenerateArticleSuggestionResponse:
       type: object
       required:
-      - collectionId
+      - data
+      - message
+      - timestamp
       properties:
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: Unique identifier for the processing task
+              example: task-abc123
+            status:
+              type: string
+              description: Current status of the task
+              example: processing
+        message:
+          type: string
+          description: Human-readable status message
+          example: Article suggestion generation has been triggered. Results will be synced when processing is complete.
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    UpdateDocumentRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Document title
+          example: Updated Title
+        text:
+          type: string
+          description: Document content in Markdown format
+          example: '# Updated Content
+
+
+            New content here...'
+        publish:
+          type: boolean
+          description: Whether to publish the document
+        fullWidth:
+          type: boolean
+          description: Whether the document should display in full width
         collectionId:
           type: string
           format: uuid
-          description: Target collection ID to move the document into
-        parentDocumentId:
-          type:
-          - string
-          - 'null'
+          description: Collection ID to move the document to
+        siteEnabled:
+          type: boolean
+          description: Whether the document should be public on the site
+    ValidationError:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          validationErrors:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                  description: Field that failed validation
+                message:
+                  type: string
+                  description: Validation error message
+                code:
+                  type: string
+                  description: Validation error code
+    UserSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: User ID
+        name:
+          type: string
+          description: User's full name
+        avatarUrl:
+          type: string
+          description: User's avatar URL
+    GenerateArticleSuggestionRequest:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          minLength: 1
+          description: Full article content in Markdown format
+          example: '# Introduction
+
+
+            Welcome to our platform. This guide will help you get started...'
+        collection_id:
+          type: string
           format: uuid
-          description: Optional parent document ID within the target collection
-        index:
-          type: integer
-          minimum: 0
-          description: Position index among siblings (0-based). If omitted, the document is placed at the end.
+          description: Optional collection ID where new documents will be created
+          example: 123e4567-e89b-12d3-a456-426614174000
+        new_article:
+          type: boolean
+          default: false
+          description: Whether to create a new article (true) or suggest updates to existing documents (false)
+          example: false
+    DeleteDocumentResponse:
+      type: object
+      required:
+      - success
+      - timestamp
+      properties:
+        success:
+          type: boolean
+          description: Whether the deletion was successful
+          example: true
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    DocumentListResponse:
+      type: object
+      required:
+      - data
+      - pagination
+      - timestamp
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
+        pagination:
+          type: object
+          required:
+          - offset
+          - limit
+          - total
+          properties:
+            offset:
+              type: integer
+              description: Current offset
+              example: 0
+            limit:
+              type: integer
+              description: Maximum results per page
+              example: 25
+            total:
+              type: integer
+              description: Total number of results
+              example: 42
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    MoveDocumentResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          type: object
+          required:
+          - documents
+          - collections
+          properties:
+            documents:
+              type: array
+              items:
+                $ref: '#/components/schemas/Document'
+              description: The moved document and any child documents whose collection changed
+            collections:
+              type: array
+              items:
+                $ref: '#/components/schemas/CollectionListItem'
+              description: The source and/or target collections affected by the move
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
     DocumentListItem:
       type: object
       description: Simplified document representation for list endpoints
@@ -1137,48 +1117,45 @@ components:
           type: boolean
           description: Whether the document has a pending suggestion awaiting review
           example: false
-    ValidationError:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          validationErrors:
-            type: array
-            items:
-              type: object
-              properties:
-                field:
-                  type: string
-                  description: Field that failed validation
-                message:
-                  type: string
-                  description: Validation error message
-                code:
-                  type: string
-                  description: Validation error code
-    GenerateArticleSuggestionRequest:
+    CreateDocumentRequest:
       type: object
-      required:
-      - content
       properties:
-        content:
+        title:
           type: string
-          minLength: 1
-          description: Full article content in Markdown format
+          description: Document title
+          default: ''
+          example: Getting Started Guide
+        text:
+          type: string
+          description: Document content in Markdown format
+          default: ''
           example: '# Introduction
 
 
-            Welcome to our platform. This guide will help you get started...'
-        collection_id:
+            Welcome to our platform...'
+        collectionId:
           type: string
           format: uuid
-          description: Optional collection ID where new documents will be created
+          description: Collection ID to create the document in
           example: 123e4567-e89b-12d3-a456-426614174000
-        new_article:
+        parentDocumentId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Parent document ID for nested documents
+        publish:
           type: boolean
-          default: false
-          description: Whether to create a new article (true) or suggest updates to existing documents (false)
+          description: Whether to publish the document immediately
+          example: true
+        template:
+          type: boolean
+          description: Whether this document is a template
           example: false
+        templateId:
+          type: string
+          format: uuid
+          description: Template ID to use for creating the document
     DocumentDetail:
       type: object
       description: Full document representation with text content
@@ -1296,7 +1273,41 @@ components:
           type: boolean
           description: Whether the document has a pending suggestion awaiting review
           example: false
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
   responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: not_found
+            message: Document not found
+            timestamp: '2024-01-15T10:30:00Z'
+            requestId: req-notfound123
     InternalServerError:
       description: Internal server error
       content:
@@ -1308,6 +1319,57 @@ components:
             message: An unexpected error occurred
             requestId: req-abc123
             timestamp: '2024-01-15T10:30:00Z'
+    TooManyRequests:
+      description: Rate limit exceeded
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Request limit per time window
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current window
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Time when rate limit resets (Unix timestamp)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: rate_limit_exceeded
+            message: 'Too many requests. Rate limit: 25 requests per minute'
+            timestamp: '2024-01-15T10:30:00Z'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            missingToken:
+              summary: Missing authentication token
+              value:
+                error: authentication_required
+                message: 'Authentication required. Use Authorization: Bearer <token> header'
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-abc123
+            missingAgentKey:
+              summary: Missing agent key
+              value:
+                error: authentication_required
+                message: Agent key is required
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-def456
+            invalidCredentials:
+              summary: Invalid credentials
+              value:
+                error: authentication_required
+                message: Invalid or missing authentication credentials
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-ghi789
     UnprocessableEntity:
       description: Invalid request format or unknown message type
       content:
@@ -1348,68 +1410,6 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: not_found
-            message: Document not found
-            timestamp: '2024-01-15T10:30:00Z'
-            requestId: req-notfound123
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            missingToken:
-              summary: Missing authentication token
-              value:
-                error: authentication_required
-                message: 'Authentication required. Use Authorization: Bearer <token> header'
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-abc123
-            missingAgentKey:
-              summary: Missing agent key
-              value:
-                error: authentication_required
-                message: Agent key is required
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-def456
-            invalidCredentials:
-              summary: Invalid credentials
-              value:
-                error: authentication_required
-                message: Invalid or missing authentication credentials
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-ghi789
-    TooManyRequests:
-      description: Rate limit exceeded
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Request limit per time window
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests in current window
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: Time when rate limit resets (Unix timestamp)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: rate_limit_exceeded
-            message: 'Too many requests. Rate limit: 25 requests per minute'
-            timestamp: '2024-01-15T10:30:00Z'
   securitySchemes:
     BearerAuth:
       type: http

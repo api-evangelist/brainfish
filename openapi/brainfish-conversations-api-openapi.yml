@@ -98,93 +98,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: internal_error
-            message: An unexpected error occurred
-            requestId: req-abc123
-            timestamp: '2024-01-15T10:30:00Z'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            missingToken:
-              summary: Missing authentication token
-              value:
-                error: authentication_required
-                message: 'Authentication required. Use Authorization: Bearer <token> header'
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-abc123
-            missingAgentKey:
-              summary: Missing agent key
-              value:
-                error: authentication_required
-                message: Agent key is required
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-def456
-            invalidCredentials:
-              summary: Invalid credentials
-              value:
-                error: authentication_required
-                message: Invalid or missing authentication credentials
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-ghi789
-    TooManyRequests:
-      description: Rate limit exceeded
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Request limit per time window
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests in current window
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: Time when rate limit resets (Unix timestamp)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: rate_limit_exceeded
-            message: 'Too many requests. Rate limit: 25 requests per minute'
-            timestamp: '2024-01-15T10:30:00Z'
   schemas:
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
     FollowUpQuestionsResponse:
       type: object
       required:
@@ -218,6 +132,92 @@ components:
           maximum: 10
           default: 3
           description: Maximum number of follow-up questions to generate
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
+  responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internal_error
+            message: An unexpected error occurred
+            requestId: req-abc123
+            timestamp: '2024-01-15T10:30:00Z'
+    TooManyRequests:
+      description: Rate limit exceeded
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Request limit per time window
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current window
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Time when rate limit resets (Unix timestamp)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: rate_limit_exceeded
+            message: 'Too many requests. Rate limit: 25 requests per minute'
+            timestamp: '2024-01-15T10:30:00Z'
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            missingToken:
+              summary: Missing authentication token
+              value:
+                error: authentication_required
+                message: 'Authentication required. Use Authorization: Bearer <token> header'
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-abc123
+            missingAgentKey:
+              summary: Missing agent key
+              value:
+                error: authentication_required
+                message: Agent key is required
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-def456
+            invalidCredentials:
+              summary: Invalid credentials
+              value:
+                error: authentication_required
+                message: Invalid or missing authentication credentials
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-ghi789
   securitySchemes:
     BearerAuth:
       type: http

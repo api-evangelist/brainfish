@@ -291,216 +291,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    CatalogDetailResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          $ref: '#/components/schemas/CatalogWithCount'
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    ValidationError:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          validationErrors:
-            type: array
-            items:
-              type: object
-              properties:
-                field:
-                  type: string
-                  description: Field that failed validation
-                message:
-                  type: string
-                  description: Validation error message
-                code:
-                  type: string
-                  description: Validation error code
-    SyncCatalogContentRequest:
-      type: object
-      required:
-      - files
-      properties:
-        files:
-          type: array
-          minItems: 1
-          description: Content files to sync
-          items:
-            type: object
-            required:
-            - url
-            - content
-            - title
-            properties:
-              url:
-                type: string
-                minLength: 1
-                description: URL or path used as unique identifier within the catalog
-                example: https://docs.acme.com/getting-started
-              content:
-                type: string
-                description: File content (Markdown, MDX, plain text, etc.)
-                example: '# Getting Started
-
-
-                  Welcome to our docs...'
-              title:
-                type: string
-                minLength: 1
-                description: Content title
-                example: Getting Started
-    SyncCatalogContentResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/CatalogWithCount'
-          - type: object
-            properties:
-              created:
-                type: integer
-                description: Number of new content entries created
-                example: 2
-              updated:
-                type: integer
-                description: Number of existing content entries updated
-                example: 1
-              removed:
-                type: integer
-                description: Number of stale content entries removed
-                example: 0
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    CreateCatalogRequest:
-      type: object
-      required:
-      - name
-      - source
-      properties:
-        name:
-          type: string
-          description: Catalog name
-          minLength: 1
-          maxLength: 255
-          example: Developer Documentation
-        source:
-          type: string
-          description: Catalog source type
-          enum:
-          - cms
-          - website
-          - zendesk
-          - github
-          - discovery
-          - helpscout
-          - readme
-          - readmev2
-          - oas
-          - notion
-          - intercom
-          - freshdesk
-          - helpjuice
-          - googledrive
-          - confluence
-          - guru
-          - external
-          example: external
-        slug:
-          type: string
-          description: Unique slug for this catalog (used as an external identifier)
-          minLength: 1
-          maxLength: 100
-          example: dev-docs
-        configurations:
-          type: object
-          additionalProperties: true
-          description: Optional source-specific configuration
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
-    CatalogListResponse:
-      type: object
-      required:
-      - data
-      - pagination
-      - timestamp
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CatalogWithCount'
-        pagination:
-          type: object
-          required:
-          - offset
-          - limit
-          - total
-          properties:
-            offset:
-              type: integer
-              example: 0
-            limit:
-              type: integer
-              example: 25
-            total:
-              type: integer
-              example: 3
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    CatalogWithCount:
-      allOf:
-      - $ref: '#/components/schemas/Catalog'
-      - type: object
-        properties:
-          contentCount:
-            type: integer
-            description: Number of content entries in the catalog
-            example: 42
-    CatalogResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          $ref: '#/components/schemas/Catalog'
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
     Catalog:
       type: object
       required:
@@ -563,18 +353,217 @@ components:
           - string
           - 'null'
           description: Last sync error message, if any
+    CreateCatalogRequest:
+      type: object
+      required:
+      - name
+      - source
+      properties:
+        name:
+          type: string
+          description: Catalog name
+          minLength: 1
+          maxLength: 255
+          example: Developer Documentation
+        source:
+          type: string
+          description: Catalog source type
+          enum:
+          - cms
+          - website
+          - zendesk
+          - github
+          - discovery
+          - helpscout
+          - readme
+          - readmev2
+          - oas
+          - notion
+          - intercom
+          - freshdesk
+          - helpjuice
+          - googledrive
+          - confluence
+          - guru
+          - external
+          example: external
+        slug:
+          type: string
+          description: Unique slug for this catalog (used as an external identifier)
+          minLength: 1
+          maxLength: 100
+          example: dev-docs
+        configurations:
+          type: object
+          additionalProperties: true
+          description: Optional source-specific configuration
+    CatalogDetailResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          $ref: '#/components/schemas/CatalogWithCount'
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    CatalogListResponse:
+      type: object
+      required:
+      - data
+      - pagination
+      - timestamp
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogWithCount'
+        pagination:
+          type: object
+          required:
+          - offset
+          - limit
+          - total
+          properties:
+            offset:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 25
+            total:
+              type: integer
+              example: 3
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    ValidationError:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          validationErrors:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                  description: Field that failed validation
+                message:
+                  type: string
+                  description: Validation error message
+                code:
+                  type: string
+                  description: Validation error code
+    CatalogWithCount:
+      allOf:
+      - $ref: '#/components/schemas/Catalog'
+      - type: object
+        properties:
+          contentCount:
+            type: integer
+            description: Number of content entries in the catalog
+            example: 42
+    SyncCatalogContentRequest:
+      type: object
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          minItems: 1
+          description: Content files to sync
+          items:
+            type: object
+            required:
+            - url
+            - content
+            - title
+            properties:
+              url:
+                type: string
+                minLength: 1
+                description: URL or path used as unique identifier within the catalog
+                example: https://docs.acme.com/getting-started
+              content:
+                type: string
+                description: File content (Markdown, MDX, plain text, etc.)
+                example: '# Getting Started
+
+
+                  Welcome to our docs...'
+              title:
+                type: string
+                minLength: 1
+                description: Content title
+                example: Getting Started
+    SyncCatalogContentResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CatalogWithCount'
+          - type: object
+            properties:
+              created:
+                type: integer
+                description: Number of new content entries created
+                example: 2
+              updated:
+                type: integer
+                description: Number of existing content entries updated
+                example: 1
+              removed:
+                type: integer
+                description: Number of stale content entries removed
+                example: 0
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
+    CatalogResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          $ref: '#/components/schemas/Catalog'
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: not_found
-            message: Document not found
-            timestamp: '2024-01-15T10:30:00Z'
-            requestId: req-notfound123
     InternalServerError:
       description: Internal server error
       content:
@@ -586,34 +575,6 @@ components:
             message: An unexpected error occurred
             requestId: req-abc123
             timestamp: '2024-01-15T10:30:00Z'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            missingToken:
-              summary: Missing authentication token
-              value:
-                error: authentication_required
-                message: 'Authentication required. Use Authorization: Bearer <token> header'
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-abc123
-            missingAgentKey:
-              summary: Missing agent key
-              value:
-                error: authentication_required
-                message: Agent key is required
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-def456
-            invalidCredentials:
-              summary: Invalid credentials
-              value:
-                error: authentication_required
-                message: Invalid or missing authentication credentials
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-ghi789
     TooManyRequests:
       description: Rate limit exceeded
       headers:
@@ -677,6 +638,45 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            missingToken:
+              summary: Missing authentication token
+              value:
+                error: authentication_required
+                message: 'Authentication required. Use Authorization: Bearer <token> header'
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-abc123
+            missingAgentKey:
+              summary: Missing agent key
+              value:
+                error: authentication_required
+                message: Agent key is required
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-def456
+            invalidCredentials:
+              summary: Invalid credentials
+              value:
+                error: authentication_required
+                message: Invalid or missing authentication credentials
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-ghi789
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: not_found
+            message: Document not found
+            timestamp: '2024-01-15T10:30:00Z'
+            requestId: req-notfound123
   securitySchemes:
     BearerAuth:
       type: http

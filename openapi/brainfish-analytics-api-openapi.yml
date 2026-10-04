@@ -90,25 +90,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ValidationError:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          validationErrors:
-            type: array
-            items:
-              type: object
-              properties:
-                field:
-                  type: string
-                  description: Field that failed validation
-                message:
-                  type: string
-                  description: Validation error message
-                code:
-                  type: string
-                  description: Validation error code
     AnalyticsThreadsResponse:
       type: object
       properties:
@@ -132,74 +113,6 @@ components:
           type: string
           format: date-time
           description: Response timestamp
-    AnalyticsThread:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Thread ID
-        question:
-          type: string
-          description: First user message in the thread
-        source:
-          type: object
-          properties:
-            name:
-              type: string
-              description: Channel name
-            color:
-              type: string
-              description: Channel display colour
-        resolutionStatus:
-          type:
-          - string
-          - 'null'
-          enum:
-          - answered
-          - partial
-          - unable_to_help
-          - technical_issue
-          - skipped
-          description: Thread resolution status
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp of the first user message
-        value:
-          type: string
-          description: Thread ID (alias)
-        hasAttributes:
-          type: boolean
-          description: Whether the thread has user attributes
-        conversationScore:
-          type:
-          - number
-          - 'null'
-          description: AI-computed conversation quality score
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
     AnalyticsThreadsRequest:
       type: object
       required:
@@ -262,6 +175,93 @@ components:
           items:
             type: string
           description: Filter by action types
+    AnalyticsThread:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Thread ID
+        question:
+          type: string
+          description: First user message in the thread
+        source:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Channel name
+            color:
+              type: string
+              description: Channel display colour
+        resolutionStatus:
+          type:
+          - string
+          - 'null'
+          enum:
+          - answered
+          - partial
+          - unable_to_help
+          - technical_issue
+          - skipped
+          description: Thread resolution status
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the first user message
+        value:
+          type: string
+          description: Thread ID (alias)
+        hasAttributes:
+          type: boolean
+          description: Whether the thread has user attributes
+        conversationScore:
+          type:
+          - number
+          - 'null'
+          description: AI-computed conversation quality score
+    ValidationError:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          validationErrors:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                  description: Field that failed validation
+                message:
+                  type: string
+                  description: Validation error message
+                code:
+                  type: string
+                  description: Validation error code
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
   responses:
     InternalServerError:
       description: Internal server error
@@ -274,34 +274,6 @@ components:
             message: An unexpected error occurred
             requestId: req-abc123
             timestamp: '2024-01-15T10:30:00Z'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            missingToken:
-              summary: Missing authentication token
-              value:
-                error: authentication_required
-                message: 'Authentication required. Use Authorization: Bearer <token> header'
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-abc123
-            missingAgentKey:
-              summary: Missing agent key
-              value:
-                error: authentication_required
-                message: Agent key is required
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-def456
-            invalidCredentials:
-              summary: Invalid credentials
-              value:
-                error: authentication_required
-                message: Invalid or missing authentication credentials
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-ghi789
     TooManyRequests:
       description: Rate limit exceeded
       headers:
@@ -365,6 +337,34 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            missingToken:
+              summary: Missing authentication token
+              value:
+                error: authentication_required
+                message: 'Authentication required. Use Authorization: Bearer <token> header'
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-abc123
+            missingAgentKey:
+              summary: Missing agent key
+              value:
+                error: authentication_required
+                message: Agent key is required
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-def456
+            invalidCredentials:
+              summary: Invalid credentials
+              value:
+                error: authentication_required
+                message: Invalid or missing authentication credentials
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-ghi789
   securitySchemes:
     BearerAuth:
       type: http

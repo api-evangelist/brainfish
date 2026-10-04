@@ -234,37 +234,18 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    UpdateCollectionRequest:
+    CollectionResponse:
       type: object
+      required:
+      - data
+      - timestamp
       properties:
-        name:
+        data:
+          $ref: '#/components/schemas/Collection'
+        timestamp:
           type: string
-          description: Collection name
-          minLength: 1
-        description:
-          type: string
-          description: Collection description
-        icon:
-          type: string
-          description: Collection icon (emoji or icon name)
-        color:
-          type: string
-          pattern: ^#[0-9A-Fa-f]{6}$
-          description: Collection color in hex format
-        permission:
-          type:
-          - string
-          - 'null'
-          enum:
-          - read
-          - read_write
-          description: Default permission for collection members
-        sharing:
-          type: boolean
-          description: Whether sharing is enabled
-        siteEnabled:
-          type: boolean
-          description: Whether the collection is public on site
+          format: date-time
+          description: Response timestamp
     Collection:
       type: object
       required:
@@ -352,6 +333,37 @@ components:
                 code:
                   type: string
                   description: Validation error code
+    UpdateCollectionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Collection name
+          minLength: 1
+        description:
+          type: string
+          description: Collection description
+        icon:
+          type: string
+          description: Collection icon (emoji or icon name)
+        color:
+          type: string
+          pattern: ^#[0-9A-Fa-f]{6}$
+          description: Collection color in hex format
+        permission:
+          type:
+          - string
+          - 'null'
+          enum:
+          - read
+          - read_write
+          description: Default permission for collection members
+        sharing:
+          type: boolean
+          description: Whether sharing is enabled
+        siteEnabled:
+          type: boolean
+          description: Whether the collection is public on site
     CollectionListResponse:
       type: object
       required:
@@ -379,18 +391,6 @@ components:
             total:
               type: integer
               example: 10
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    CollectionResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          $ref: '#/components/schemas/Collection'
         timestamp:
           type: string
           format: date-time
@@ -468,17 +468,6 @@ components:
           type: string
           description: Unique request identifier for debugging
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: not_found
-            message: Document not found
-            timestamp: '2024-01-15T10:30:00Z'
-            requestId: req-notfound123
     InternalServerError:
       description: Internal server error
       content:
@@ -490,34 +479,6 @@ components:
             message: An unexpected error occurred
             requestId: req-abc123
             timestamp: '2024-01-15T10:30:00Z'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            missingToken:
-              summary: Missing authentication token
-              value:
-                error: authentication_required
-                message: 'Authentication required. Use Authorization: Bearer <token> header'
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-abc123
-            missingAgentKey:
-              summary: Missing agent key
-              value:
-                error: authentication_required
-                message: Agent key is required
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-def456
-            invalidCredentials:
-              summary: Invalid credentials
-              value:
-                error: authentication_required
-                message: Invalid or missing authentication credentials
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-ghi789
     TooManyRequests:
       description: Rate limit exceeded
       headers:
@@ -581,6 +542,45 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            missingToken:
+              summary: Missing authentication token
+              value:
+                error: authentication_required
+                message: 'Authentication required. Use Authorization: Bearer <token> header'
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-abc123
+            missingAgentKey:
+              summary: Missing agent key
+              value:
+                error: authentication_required
+                message: Agent key is required
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-def456
+            invalidCredentials:
+              summary: Invalid credentials
+              value:
+                error: authentication_required
+                message: Invalid or missing authentication credentials
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-ghi789
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: not_found
+            message: Document not found
+            timestamp: '2024-01-15T10:30:00Z'
+            requestId: req-notfound123
   securitySchemes:
     BearerAuth:
       type: http

@@ -594,14 +594,28 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    DocumentResponse:
+    GenerateArticleSuggestionResponse:
       type: object
       required:
       - data
+      - message
       - timestamp
       properties:
         data:
-          $ref: '#/components/schemas/DocumentDetail'
+          type: object
+          properties:
+            task_id:
+              type: string
+              description: Unique identifier for the processing task
+              example: task-abc123
+            status:
+              type: string
+              description: Current status of the task
+              example: processing
+        message:
+          type: string
+          description: Human-readable status message
+          example: Article suggestion generation has been triggered. Results will be synced when processing is complete.
         timestamp:
           type: string
           format: date-time
@@ -644,103 +658,29 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    Document:
+    GenerateArticleSuggestionRequest:
       type: object
       required:
-      - id
-      - title
-      - url
+      - content
       properties:
-        id:
+        content:
           type: string
-          description: Unique document identifier
-          example: doc-123
-        url:
-          type: string
-          description: Document URL path
-          example: /doc/getting-started-guide-abc123
-        urlId:
-          type: string
-          description: URL-friendly document identifier
-          example: abc123
-        title:
-          type: string
-          description: Document title
-          example: Getting Started Guide
-        text:
-          type: string
-          description: Document content in Markdown format
-          example: '# Welcome
+          minLength: 1
+          description: Full article content in Markdown format
+          example: '# Introduction
 
 
-            This guide helps you get started...'
-        summary:
-          type: string
-          description: Auto-generated summary of the document
-          example: Welcome. This guide helps you get started...
-        revision:
-          type: integer
-          description: Document revision count
-          example: 5
-        collectionId:
+            Welcome to our platform. This guide will help you get started...'
+        collection_id:
           type: string
           format: uuid
-          description: Collection ID the document belongs to
-        parentDocumentId:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Parent document ID if nested
-        template:
+          description: Optional collection ID where new documents will be created
+          example: 123e4567-e89b-12d3-a456-426614174000
+        new_article:
           type: boolean
-          description: Whether this is a template document
-        templateId:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Template ID used to create this document
-        fullWidth:
-          type: boolean
-          description: Whether the document displays in full width
-        siteEnabled:
-          type: boolean
-          description: Whether the document is public on the site
-        teamId:
-          type: string
-          format: uuid
-          description: Team ID the document belongs to
-        createdAt:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updatedAt:
-          type: string
-          format: date-time
-          description: Last update timestamp
-        publishedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Publication timestamp
-        archivedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Archive timestamp
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Deletion timestamp
-        createdBy:
-          $ref: '#/components/schemas/UserSummary'
-        updatedBy:
-          $ref: '#/components/schemas/UserSummary'
+          default: false
+          description: Whether to create a new article (true) or suggest updates to existing documents (false)
+          example: false
     SearchDocumentsResponse:
       type: object
       required:
@@ -772,89 +712,6 @@ components:
           type: string
           description: The processed search query (may be rewritten for better results)
           example: How do I reset my password?
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    MoveDocumentRequest:
-      type: object
-      required:
-      - collectionId
-      properties:
-        collectionId:
-          type: string
-          format: uuid
-          description: Target collection ID to move the document into
-        parentDocumentId:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Optional parent document ID within the target collection
-        index:
-          type: integer
-          minimum: 0
-          description: Position index among siblings (0-based). If omitted, the document is placed at the end.
-    SearchDocumentsRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: Search query string
-          minLength: 1
-          example: How do I reset my password?
-        collectionId:
-          type: string
-          format: uuid
-          description: Filter by collection ID
-        collectionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: Filter by multiple collection IDs
-        dateFilter:
-          type: string
-          enum:
-          - day
-          - week
-          - month
-          - year
-          description: Filter by date range
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 25
-          default: 10
-          description: Maximum number of results to return (semantic search does not support offset-based pagination)
-        cmsOnly:
-          type: boolean
-          default: false
-          description: Only include CMS documents (exclude external catalog content like Confluence, Notion, etc.)
-    GenerateArticleSuggestionResponse:
-      type: object
-      required:
-      - data
-      - message
-      - timestamp
-      properties:
-        data:
-          type: object
-          properties:
-            task_id:
-              type: string
-              description: Unique identifier for the processing task
-              example: task-abc123
-            status:
-              type: string
-              description: Current status of the task
-              example: processing
-        message:
-          type: string
-          description: Human-readable status message
-          example: Article suggestion generation has been triggered. Results will be synced when processing is complete.
         timestamp:
           type: string
           format: date-time
@@ -905,6 +762,41 @@ components:
                 code:
                   type: string
                   description: Validation error code
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
+    DocumentResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          $ref: '#/components/schemas/DocumentDetail'
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
     UserSummary:
       type: object
       properties:
@@ -917,103 +809,6 @@ components:
         avatarUrl:
           type: string
           description: User's avatar URL
-    GenerateArticleSuggestionRequest:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          minLength: 1
-          description: Full article content in Markdown format
-          example: '# Introduction
-
-
-            Welcome to our platform. This guide will help you get started...'
-        collection_id:
-          type: string
-          format: uuid
-          description: Optional collection ID where new documents will be created
-          example: 123e4567-e89b-12d3-a456-426614174000
-        new_article:
-          type: boolean
-          default: false
-          description: Whether to create a new article (true) or suggest updates to existing documents (false)
-          example: false
-    DeleteDocumentResponse:
-      type: object
-      required:
-      - success
-      - timestamp
-      properties:
-        success:
-          type: boolean
-          description: Whether the deletion was successful
-          example: true
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    DocumentListResponse:
-      type: object
-      required:
-      - data
-      - pagination
-      - timestamp
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentListItem'
-        pagination:
-          type: object
-          required:
-          - offset
-          - limit
-          - total
-          properties:
-            offset:
-              type: integer
-              description: Current offset
-              example: 0
-            limit:
-              type: integer
-              description: Maximum results per page
-              example: 25
-            total:
-              type: integer
-              description: Total number of results
-              example: 42
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    MoveDocumentResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          type: object
-          required:
-          - documents
-          - collections
-          properties:
-            documents:
-              type: array
-              items:
-                $ref: '#/components/schemas/Document'
-              description: The moved document and any child documents whose collection changed
-            collections:
-              type: array
-              items:
-                $ref: '#/components/schemas/CollectionListItem'
-              description: The source and/or target collections affected by the move
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
     DocumentListItem:
       type: object
       description: Simplified document representation for list endpoints
@@ -1117,6 +912,92 @@ components:
           type: boolean
           description: Whether the document has a pending suggestion awaiting review
           example: false
+    SearchDocumentsRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: Search query string
+          minLength: 1
+          example: How do I reset my password?
+        collectionId:
+          type: string
+          format: uuid
+          description: Filter by collection ID
+        collectionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Filter by multiple collection IDs
+        dateFilter:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+          - year
+          description: Filter by date range
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 25
+          default: 10
+          description: Maximum number of results to return (semantic search does not support offset-based pagination)
+        cmsOnly:
+          type: boolean
+          default: false
+          description: Only include CMS documents (exclude external catalog content like Confluence, Notion, etc.)
+    DeleteDocumentResponse:
+      type: object
+      required:
+      - success
+      - timestamp
+      properties:
+        success:
+          type: boolean
+          description: Whether the deletion was successful
+          example: true
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    DocumentListResponse:
+      type: object
+      required:
+      - data
+      - pagination
+      - timestamp
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentListItem'
+        pagination:
+          type: object
+          required:
+          - offset
+          - limit
+          - total
+          properties:
+            offset:
+              type: integer
+              description: Current offset
+              example: 0
+            limit:
+              type: integer
+              description: Maximum results per page
+              example: 25
+            total:
+              type: integer
+              description: Total number of results
+              example: 42
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
     CreateDocumentRequest:
       type: object
       properties:
@@ -1156,6 +1037,51 @@ components:
           type: string
           format: uuid
           description: Template ID to use for creating the document
+    MoveDocumentRequest:
+      type: object
+      required:
+      - collectionId
+      properties:
+        collectionId:
+          type: string
+          format: uuid
+          description: Target collection ID to move the document into
+        parentDocumentId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Optional parent document ID within the target collection
+        index:
+          type: integer
+          minimum: 0
+          description: Position index among siblings (0-based). If omitted, the document is placed at the end.
+    MoveDocumentResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          type: object
+          required:
+          - documents
+          - collections
+          properties:
+            documents:
+              type: array
+              items:
+                $ref: '#/components/schemas/Document'
+              description: The moved document and any child documents whose collection changed
+            collections:
+              type: array
+              items:
+                $ref: '#/components/schemas/CollectionListItem'
+              description: The source and/or target collections affected by the move
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
     DocumentDetail:
       type: object
       description: Full document representation with text content
@@ -1273,75 +1199,104 @@ components:
           type: boolean
           description: Whether the document has a pending suggestion awaiting review
           example: false
-    Error:
+    Document:
       type: object
       required:
-      - error
-      - message
+      - id
+      - title
+      - url
       properties:
-        error:
+        id:
           type: string
-          description: Error type or code
-        message:
+          description: Unique document identifier
+          example: doc-123
+        url:
           type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
+          description: Document URL path
+          example: /doc/getting-started-guide-abc123
+        urlId:
+          type: string
+          description: URL-friendly document identifier
+          example: abc123
+        title:
+          type: string
+          description: Document title
+          example: Getting Started Guide
+        text:
+          type: string
+          description: Document content in Markdown format
+          example: '# Welcome
+
+
+            This guide helps you get started...'
+        summary:
+          type: string
+          description: Auto-generated summary of the document
+          example: Welcome. This guide helps you get started...
+        revision:
+          type: integer
+          description: Document revision count
+          example: 5
+        collectionId:
+          type: string
+          format: uuid
+          description: Collection ID the document belongs to
+        parentDocumentId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Parent document ID if nested
+        template:
+          type: boolean
+          description: Whether this is a template document
+        templateId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Template ID used to create this document
+        fullWidth:
+          type: boolean
+          description: Whether the document displays in full width
+        siteEnabled:
+          type: boolean
+          description: Whether the document is public on the site
+        teamId:
+          type: string
+          format: uuid
+          description: Team ID the document belongs to
+        createdAt:
           type: string
           format: date-time
-          description: Error timestamp
-        requestId:
+          description: Creation timestamp
+        updatedAt:
           type: string
-          description: Unique request identifier for debugging
+          format: date-time
+          description: Last update timestamp
+        publishedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Publication timestamp
+        archivedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Archive timestamp
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Deletion timestamp
+        createdBy:
+          $ref: '#/components/schemas/UserSummary'
+        updatedBy:
+          $ref: '#/components/schemas/UserSummary'
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: not_found
-            message: Document not found
-            timestamp: '2024-01-15T10:30:00Z'
-            requestId: req-notfound123
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: internal_error
-            message: An unexpected error occurred
-            requestId: req-abc123
-            timestamp: '2024-01-15T10:30:00Z'
-    TooManyRequests:
-      description: Rate limit exceeded
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Request limit per time window
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests in current window
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: Time when rate limit resets (Unix timestamp)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: rate_limit_exceeded
-            message: 'Too many requests. Rate limit: 25 requests per minute'
-            timestamp: '2024-01-15T10:30:00Z'
     Unauthorized:
       description: Authentication required or invalid credentials
       content:
@@ -1370,6 +1325,40 @@ components:
                 message: Invalid or missing authentication credentials
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-ghi789
+    TooManyRequests:
+      description: Rate limit exceeded
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Request limit per time window
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current window
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Time when rate limit resets (Unix timestamp)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: rate_limit_exceeded
+            message: 'Too many requests. Rate limit: 25 requests per minute'
+            timestamp: '2024-01-15T10:30:00Z'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internal_error
+            message: An unexpected error occurred
+            requestId: req-abc123
+            timestamp: '2024-01-15T10:30:00Z'
     UnprocessableEntity:
       description: Invalid request format or unknown message type
       content:
@@ -1410,6 +1399,17 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: not_found
+            message: Document not found
+            timestamp: '2024-01-15T10:30:00Z'
+            requestId: req-notfound123
   securitySchemes:
     BearerAuth:
       type: http

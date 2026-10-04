@@ -188,106 +188,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  schemas:
-    ValidationError:
-      allOf:
-      - $ref: '#/components/schemas/Error'
-      - type: object
-        properties:
-          validationErrors:
-            type: array
-            items:
-              type: object
-              properties:
-                field:
-                  type: string
-                  description: Field that failed validation
-                message:
-                  type: string
-                  description: Validation error message
-                code:
-                  type: string
-                  description: Validation error code
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
-    UserAnswerRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: The query string to generate an answer for
-          minLength: 1
-          example: How do I reset my password?
-        conversationId:
-          type: string
-          description: 'Optional conversation ID for maintaining context across multiple queries.
-
-            Omit for the first request; use the conversationId from the previous response for follow-ups.
-
-            '
-          pattern: ^[0-9a-z]{25}$
-        stream:
-          type: boolean
-          default: true
-          description: Whether to stream the response via SSE
-        collectionIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: 'Optional array of collection IDs to restrict which knowledge base collections are
-
-            searched. When omitted, all available collections are searched.
-
-            '
-        channelType:
-          type: string
-          enum:
-          - email
-          - whatsapp
-          - slack
-          - msteams
-          description: Optional channel type for context
-        attachments:
-          type: array
-          maxItems: 10
-          items:
-            type: object
-            required:
-            - type
-            - url
-            properties:
-              type:
-                type: string
-                enum:
-                - image
-              url:
-                type: string
-                format: uri
-          description: Optional image attachments (max 10)
   responses:
     InternalServerError:
       description: Internal server error
@@ -300,34 +200,6 @@ components:
             message: An unexpected error occurred
             requestId: req-abc123
             timestamp: '2024-01-15T10:30:00Z'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            missingToken:
-              summary: Missing authentication token
-              value:
-                error: authentication_required
-                message: 'Authentication required. Use Authorization: Bearer <token> header'
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-abc123
-            missingAgentKey:
-              summary: Missing agent key
-              value:
-                error: authentication_required
-                message: Agent key is required
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-def456
-            invalidCredentials:
-              summary: Invalid credentials
-              value:
-                error: authentication_required
-                message: Invalid or missing authentication credentials
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-ghi789
     TooManyRequests:
       description: Rate limit exceeded
       headers:
@@ -391,6 +263,134 @@ components:
                   code: too_big
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-val789
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            missingToken:
+              summary: Missing authentication token
+              value:
+                error: authentication_required
+                message: 'Authentication required. Use Authorization: Bearer <token> header'
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-abc123
+            missingAgentKey:
+              summary: Missing agent key
+              value:
+                error: authentication_required
+                message: Agent key is required
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-def456
+            invalidCredentials:
+              summary: Invalid credentials
+              value:
+                error: authentication_required
+                message: Invalid or missing authentication credentials
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-ghi789
+  schemas:
+    UserAnswerRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The query string to generate an answer for
+          minLength: 1
+          example: How do I reset my password?
+        conversationId:
+          type: string
+          description: 'Optional conversation ID for maintaining context across multiple queries.
+
+            Omit for the first request; use the conversationId from the previous response for follow-ups.
+
+            '
+          pattern: ^[0-9a-z]{25}$
+        stream:
+          type: boolean
+          default: true
+          description: Whether to stream the response via SSE
+        collectionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Optional array of collection IDs to restrict which knowledge base collections are
+
+            searched. When omitted, all available collections are searched.
+
+            '
+        channelType:
+          type: string
+          enum:
+          - email
+          - whatsapp
+          - slack
+          - msteams
+          description: Optional channel type for context
+        attachments:
+          type: array
+          maxItems: 10
+          items:
+            type: object
+            required:
+            - type
+            - url
+            properties:
+              type:
+                type: string
+                enum:
+                - image
+              url:
+                type: string
+                format: uri
+          description: Optional image attachments (max 10)
+    ValidationError:
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          validationErrors:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                  description: Field that failed validation
+                message:
+                  type: string
+                  description: Validation error message
+                code:
+                  type: string
+                  description: Validation error code
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
   securitySchemes:
     BearerAuth:
       type: http

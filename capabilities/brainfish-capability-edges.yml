@@ -1,0 +1,35 @@
+slug: brainfish
+provider: Brainfish
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Agents
+  spec_file: brainfish-agents-api-openapi.yml
+  capability_id: BC-430.40
+  capability_id_l1: BC-430
+  capability_name: Self-Service Management
+  confidence: 0.75
+  evidence: POST /v1/agents/answer generateAnswer Generate streaming answer
+  reason: The operation has an AI support agent generate answers to customer questions grounded in product
+    knowledge, which is automated self-service support (chatbot/knowledge-based answering) within Customer
+    Service Management.
+- tag: Users
+  spec_file: brainfish-users-api-openapi.yml
+  capability_id: BC-430.40
+  capability_id_l1: BC-430
+  capability_name: Self-Service Management
+  confidence: 0.7
+  evidence: POST /v1/users/answer  generateUserAnswer  Generate streaming answer
+  reason: The single operation generates an AI answer to an end-user question, grounded in the company's
+    product knowledge — this is automated self-service/knowledge-base answering (chatbot-style deflection),
+    the Self-Service Management sub-capability of customer service rather than agent-handled inquiry resolution.

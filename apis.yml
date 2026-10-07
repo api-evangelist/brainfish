@@ -390,6 +390,8 @@ apis:
   - type: Arazzo
     url: arazzo/brainfish-catalog-sync.yml
 common:
+- type: Plans
+  url: plans/brainfish-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/brainfish-capability-edges.yml
   name: Brainfish Business Capability Map

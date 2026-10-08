@@ -390,6 +390,8 @@ apis:
   - type: Arazzo
     url: arazzo/brainfish-catalog-sync.yml
 common:
+- type: RateLimits
+  url: rate-limits/brainfish-rate-limits.yml
 - type: Plans
   url: plans/brainfish-plans-pricing.yml
 - type: CapabilityMap

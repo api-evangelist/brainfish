@@ -1,0 +1,66 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://www.brainfishai.com/pricing
+sources:
+- https://www.brainfishai.com/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: negotiated
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: false
+note: No numeric price is published on the pricing page; Pricing page describes a platform fee plus add-ons
+  but shows no numeric prices; all plans say contact/request pricing.
+plan_count: 3
+plans:
+- name: Platform
+  price_text: Contact sales now
+  period: none
+  included_quota: 5 Platform seats, 5,000 Queries / month, 1:1 Dedicated account manager
+  overage: Additional admin / editor seats; Additional queries (per 1,000); Volume discounts at every
+    tier
+- name: For Startups
+  price_text: Request pricing
+  period: none
+  included_quota: Lower annual commitment, designed for lean teams
+- name: For Enterprise
+  price_text: Request pricing
+  period: none
+  included_quota: Custom scope & pricing, MSA and SSO support, localized hosting available
+rate_limit_statements:
+- 5,000 Queries / month
+- Sessions are bounded by 30 minutes of inactivity.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  units: []
+  plans:
+  - name: Platform
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: For Startups
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: For Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none

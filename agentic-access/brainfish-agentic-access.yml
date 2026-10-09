@@ -1,20 +1,49 @@
-generated: '2026-07-18'
+generated: '2026-09-23'
 method: generated
-source: openapi/brainfish-public-api-openapi-original.json
+source: openapi/brainfish-agents-api-openapi.yml, openapi/brainfish-analytics-api-openapi.yml,
+  openapi/brainfish-authentication-api-openapi.yml, openapi/brainfish-catalogs-api-openapi.yml,
+  openapi/brainfish-collections-api-openapi.yml, openapi/brainfish-conversations-api-openapi.yml,
+  openapi/brainfish-documents-api-openapi.yml, openapi/brainfish-sessions-api-openapi.yml, openapi/brainfish-users-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 27
   by_action_class:
-    acting: 19
-    connected: 8
+    acting: 17
+    connected: 10
   by_consequence:
-    write: 18
+    write: 16
+    read: 10
     safety-critical: 1
-    read: 8
   human_in_the_loop_required: 1
 operations:
+- path: /v1/agents/answer
+  method: post
+  operationId: generateAnswer
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/analytics/threads
+  method: post
+  operationId: listAnalyticsThreads
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /v1/auth/validate
   method: post
   operationId: validateToken
@@ -46,22 +75,6 @@ operations:
       proof-of-possession: true
     escalation:
       human-in-the-loop: required
-    audit: required
-- path: /v1/agents/answer
-  method: post
-  operationId: generateAnswer
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
     audit: required
 - path: /v1/catalogs
   method: get
@@ -183,6 +196,22 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v1/conversations/{conversationId}/follow-ups
+  method: post
+  operationId: generateFollowUpQuestions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /v1/documents
   method: get
   operationId: listDocuments
@@ -271,53 +300,15 @@ operations:
   method: post
   operationId: searchDocuments
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/conversations/{conversationId}/follow-ups
-  method: post
-  operationId: generateFollowUpQuestions
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /v1/documents/suggestion
   method: post
   operationId: generateArticleSuggestion
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/analytics/threads
-  method: post
-  operationId: listAnalyticsThreads
   x-agentic-access:
     action-class: acting
     consequence: write

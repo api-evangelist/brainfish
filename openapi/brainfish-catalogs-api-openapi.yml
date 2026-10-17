@@ -290,6 +290,120 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            missingToken:
+              summary: Missing authentication token
+              value:
+                error: authentication_required
+                message: 'Authentication required. Use Authorization: Bearer <token> header'
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-abc123
+            missingAgentKey:
+              summary: Missing agent key
+              value:
+                error: authentication_required
+                message: Agent key is required
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-def456
+            invalidCredentials:
+              summary: Invalid credentials
+              value:
+                error: authentication_required
+                message: Invalid or missing authentication credentials
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-ghi789
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: internal_error
+            message: An unexpected error occurred
+            requestId: req-abc123
+            timestamp: '2024-01-15T10:30:00Z'
+    UnprocessableEntity:
+      description: Invalid request format or unknown message type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+          examples:
+            emptyQuery:
+              summary: Empty query validation error
+              value:
+                error: validation_failed
+                message: Request validation failed
+                validationErrors:
+                - field: query
+                  message: Query cannot be empty
+                  code: invalid_string
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-val123
+            invalidConversationId:
+              summary: Invalid conversation ID format
+              value:
+                error: validation_failed
+                message: Request validation failed
+                validationErrors:
+                - field: conversationId
+                  message: Invalid conversation ID format
+                  code: invalid_string
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-val456
+            queryTooLong:
+              summary: Query exceeds maximum length
+              value:
+                error: validation_failed
+                message: Request validation failed
+                validationErrors:
+                - field: query
+                  message: Query must be 2000 characters or less
+                  code: too_big
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-val789
+    TooManyRequests:
+      description: Rate limit exceeded
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Request limit per time window
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current window
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Time when rate limit resets (Unix timestamp)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: rate_limit_exceeded
+            message: 'Too many requests. Rate limit: 25 requests per minute'
+            timestamp: '2024-01-15T10:30:00Z'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: not_found
+            message: Document not found
+            timestamp: '2024-01-15T10:30:00Z'
+            requestId: req-notfound123
   schemas:
     Catalog:
       type: object
@@ -397,18 +511,6 @@ components:
           type: object
           additionalProperties: true
           description: Optional source-specific configuration
-    CatalogDetailResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          $ref: '#/components/schemas/CatalogWithCount'
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
     CatalogListResponse:
       type: object
       required:
@@ -459,15 +561,33 @@ components:
                 code:
                   type: string
                   description: Validation error code
-    CatalogWithCount:
-      allOf:
-      - $ref: '#/components/schemas/Catalog'
-      - type: object
-        properties:
-          contentCount:
-            type: integer
-            description: Number of content entries in the catalog
-            example: 42
+    SyncCatalogContentResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/CatalogWithCount'
+          - type: object
+            properties:
+              created:
+                type: integer
+                description: Number of new content entries created
+                example: 2
+              updated:
+                type: integer
+                description: Number of existing content entries updated
+                example: 1
+              removed:
+                type: integer
+                description: Number of stale content entries removed
+                example: 0
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
     SyncCatalogContentRequest:
       type: object
       required:
@@ -501,33 +621,6 @@ components:
                 minLength: 1
                 description: Content title
                 example: Getting Started
-    SyncCatalogContentResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/CatalogWithCount'
-          - type: object
-            properties:
-              created:
-                type: integer
-                description: Number of new content entries created
-                example: 2
-              updated:
-                type: integer
-                description: Number of existing content entries updated
-                example: 1
-              removed:
-                type: integer
-                description: Number of stale content entries removed
-                example: 0
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
     Error:
       type: object
       required:
@@ -551,6 +644,15 @@ components:
         requestId:
           type: string
           description: Unique request identifier for debugging
+    CatalogWithCount:
+      allOf:
+      - $ref: '#/components/schemas/Catalog'
+      - type: object
+        properties:
+          contentCount:
+            type: integer
+            description: Number of content entries in the catalog
+            example: 42
     CatalogResponse:
       type: object
       required:
@@ -563,120 +665,18 @@ components:
           type: string
           format: date-time
           description: Response timestamp
-  responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: internal_error
-            message: An unexpected error occurred
-            requestId: req-abc123
-            timestamp: '2024-01-15T10:30:00Z'
-    TooManyRequests:
-      description: Rate limit exceeded
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Request limit per time window
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests in current window
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: Time when rate limit resets (Unix timestamp)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: rate_limit_exceeded
-            message: 'Too many requests. Rate limit: 25 requests per minute'
-            timestamp: '2024-01-15T10:30:00Z'
-    UnprocessableEntity:
-      description: Invalid request format or unknown message type
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ValidationError'
-          examples:
-            emptyQuery:
-              summary: Empty query validation error
-              value:
-                error: validation_failed
-                message: Request validation failed
-                validationErrors:
-                - field: query
-                  message: Query cannot be empty
-                  code: invalid_string
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-val123
-            invalidConversationId:
-              summary: Invalid conversation ID format
-              value:
-                error: validation_failed
-                message: Request validation failed
-                validationErrors:
-                - field: conversationId
-                  message: Invalid conversation ID format
-                  code: invalid_string
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-val456
-            queryTooLong:
-              summary: Query exceeds maximum length
-              value:
-                error: validation_failed
-                message: Request validation failed
-                validationErrors:
-                - field: query
-                  message: Query must be 2000 characters or less
-                  code: too_big
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-val789
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            missingToken:
-              summary: Missing authentication token
-              value:
-                error: authentication_required
-                message: 'Authentication required. Use Authorization: Bearer <token> header'
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-abc123
-            missingAgentKey:
-              summary: Missing agent key
-              value:
-                error: authentication_required
-                message: Agent key is required
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-def456
-            invalidCredentials:
-              summary: Invalid credentials
-              value:
-                error: authentication_required
-                message: Invalid or missing authentication credentials
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-ghi789
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: not_found
-            message: Document not found
-            timestamp: '2024-01-15T10:30:00Z'
-            requestId: req-notfound123
+    CatalogDetailResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          $ref: '#/components/schemas/CatalogWithCount'
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
   securitySchemes:
     BearerAuth:
       type: http

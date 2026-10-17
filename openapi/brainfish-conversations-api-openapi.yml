@@ -98,64 +98,35 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  schemas:
-    FollowUpQuestionsResponse:
-      type: object
-      required:
-      - data
-      - timestamp
-      properties:
-        data:
-          type: object
-          required:
-          - followUps
-          properties:
-            followUps:
-              type: array
-              items:
-                type: string
-              description: List of suggested follow-up questions
-              example:
-              - What are the security requirements for password resets?
-              - Can I enable two-factor authentication?
-              - How do I update my email address?
-        timestamp:
-          type: string
-          format: date-time
-          description: Response timestamp
-    FollowUpQuestionsRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 10
-          default: 3
-          description: Maximum number of follow-up questions to generate
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type or code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          additionalProperties: true
-          description: Additional error details
-        timestamp:
-          type: string
-          format: date-time
-          description: Error timestamp
-        requestId:
-          type: string
-          description: Unique request identifier for debugging
   responses:
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            missingToken:
+              summary: Missing authentication token
+              value:
+                error: authentication_required
+                message: 'Authentication required. Use Authorization: Bearer <token> header'
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-abc123
+            missingAgentKey:
+              summary: Missing agent key
+              value:
+                error: authentication_required
+                message: Agent key is required
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-def456
+            invalidCredentials:
+              summary: Invalid credentials
+              value:
+                error: authentication_required
+                message: Invalid or missing authentication credentials
+                timestamp: '2024-01-15T10:30:00Z'
+                requestId: req-ghi789
     InternalServerError:
       description: Internal server error
       content:
@@ -190,34 +161,63 @@ components:
             error: rate_limit_exceeded
             message: 'Too many requests. Rate limit: 25 requests per minute'
             timestamp: '2024-01-15T10:30:00Z'
-    Unauthorized:
-      description: Authentication required or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            missingToken:
-              summary: Missing authentication token
-              value:
-                error: authentication_required
-                message: 'Authentication required. Use Authorization: Bearer <token> header'
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-abc123
-            missingAgentKey:
-              summary: Missing agent key
-              value:
-                error: authentication_required
-                message: Agent key is required
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-def456
-            invalidCredentials:
-              summary: Invalid credentials
-              value:
-                error: authentication_required
-                message: Invalid or missing authentication credentials
-                timestamp: '2024-01-15T10:30:00Z'
-                requestId: req-ghi789
+  schemas:
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type or code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
+        requestId:
+          type: string
+          description: Unique request identifier for debugging
+    FollowUpQuestionsResponse:
+      type: object
+      required:
+      - data
+      - timestamp
+      properties:
+        data:
+          type: object
+          required:
+          - followUps
+          properties:
+            followUps:
+              type: array
+              items:
+                type: string
+              description: List of suggested follow-up questions
+              example:
+              - What are the security requirements for password resets?
+              - Can I enable two-factor authentication?
+              - How do I update my email address?
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+    FollowUpQuestionsRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 3
+          description: Maximum number of follow-up questions to generate
   securitySchemes:
     BearerAuth:
       type: http

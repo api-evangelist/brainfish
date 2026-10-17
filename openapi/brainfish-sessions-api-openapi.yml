@@ -517,17 +517,6 @@ components:
                 message: Invalid or missing authentication credentials
                 timestamp: '2024-01-15T10:30:00Z'
                 requestId: req-ghi789
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            error: not_found
-            message: Document not found
-            timestamp: '2024-01-15T10:30:00Z'
-            requestId: req-notfound123
     TooManyRequests:
       description: Rate limit exceeded
       headers:
@@ -551,6 +540,17 @@ components:
             error: rate_limit_exceeded
             message: 'Too many requests. Rate limit: 25 requests per minute'
             timestamp: '2024-01-15T10:30:00Z'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: not_found
+            message: Document not found
+            timestamp: '2024-01-15T10:30:00Z'
+            requestId: req-notfound123
   schemas:
     Error:
       type: object

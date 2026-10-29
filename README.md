@@ -64,6 +64,159 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Brainfish is a company surfaced as a portfolio company of prosus-ventures and added to the API Evangelist network as a stub for enrichment. Sector: ai. This profile is a lead awaiting the enrichment pipeline.
+Brainfish is an AI product-support platform for B2B SaaS companies, built in Sydney and deployed globally with US/EU/AU data residency. Its AI support agents resolve customer tickets across chat, email, in-product, Slack and Teams, grounding every answer in the company's real product knowledge rather than training on customer data. Brainfish exposes a REST Public API (https://api.brainfi.sh) to programmatically manage the knowledge base (collections, documents, catalogs), generate cited AI answers and follow-up questions, and pull session analytics, plus a remote Model Context Protocol (MCP) server and an embeddable browser widget suite. Backed by Prosus Ventures.
 
-Backed by: prosus-ventures — https://brainfishai.com
+**Areas:** Company · Artificial Intelligence · Customer Service · Knowledge Base · Help Desk · Agents · Support Automation · Software-as-a-Service
+
+## Brainfish on APIs.io
+
+Everything profiled for Brainfish is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/brainfish/](https://apis.io/providers/brainfish/)** — or go straight to one of the APIs or properties below.
+
+### APIs (9)
+
+- [Brainfish Agents API](https://apis.io/apis/brainfish/brainfish-agents-api/) — AI agent operations for answer generation and streaming
+- [Brainfish Analytics API](https://apis.io/apis/brainfish/brainfish-analytics-api/) — Conversation thread analytics with filtering and pagination
+- [Brainfish Authentication API](https://apis.io/apis/brainfish/brainfish-authentication-api/) — Authentication and token validation operations
+- [Brainfish Catalogs API](https://apis.io/apis/brainfish/brainfish-catalogs-api/) — Catalog management operations. Create catalogs and sync content programmatically via the API.
+- [Brainfish Collections API](https://apis.io/apis/brainfish/brainfish-collections-api/) — Collection management operations including create, read, update, list, and delete
+- [Brainfish Conversations API](https://apis.io/apis/brainfish/brainfish-conversations-api/) — Conversation operations including follow-up question generation
+- [Brainfish Documents API](https://apis.io/apis/brainfish/brainfish-documents-api/) — Document management operations including create, read, update, list, and delete
+- [Brainfish Sessions API](https://apis.io/apis/brainfish/brainfish-sessions-api/) — Chat session search, detail, timeline, and AI-powered insights. A "session" is a chat conversation keyed by conversationId.
+- [Brainfish Users API](https://apis.io/apis/brainfish/brainfish-users-api/) — User-scoped operations. Generate answers personalized to a specific external/platform user with automatic attribute-based collection filtering.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (3)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Generate an answer and follow-up questions](https://apis.io/arazzos/brainfish/brainfish-answer-and-followups/)
+- [Create and sync an API catalog](https://apis.io/arazzos/brainfish/brainfish-catalog-sync/)
+- [Create a collection and add a document](https://apis.io/arazzos/brainfish/brainfish-create-collection-and-document/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [brainfish](https://apis.io/servers/brainfish/brainfish/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Brainfish Agentic Access](https://apis.io/agentic-access/brainfish/brainfish-agentic-access/)
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [Brainfish Public Agents API](https://apis.io/collections/brainfish/open-brainfish-agents-api/)
+- [Brainfish Public Agents Analytics API](https://apis.io/collections/brainfish/open-brainfish-analytics-api/)
+- [Brainfish Public Agents Authentication API](https://apis.io/collections/brainfish/open-brainfish-authentication-api/)
+- [Brainfish Public Agents Catalogs API](https://apis.io/collections/brainfish/open-brainfish-catalogs-api/)
+- [Brainfish Public Agents Collections API](https://apis.io/collections/brainfish/open-brainfish-collections-api/)
+- [Brainfish Public Agents Conversations API](https://apis.io/collections/brainfish/open-brainfish-conversations-api/)
+- [Brainfish Public Agents Documents API](https://apis.io/collections/brainfish/open-brainfish-documents-api/)
+- [Brainfish Public Agents Sessions API](https://apis.io/collections/brainfish/open-brainfish-sessions-api/)
+- [Brainfish Public Agents Users API](https://apis.io/collections/brainfish/open-brainfish-users-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Brainfish Public Api Overlay](https://apis.io/overlays/brainfish/brainfish-public-api-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Brainfish Authentication](https://apis.io/security/brainfish/brainfish-authentication/)
+- [Brainfish Domain Security](https://apis.io/security/brainfish/brainfish-domain-security/)
+- [Brainfish Trust Center](https://apis.io/security/brainfish/brainfish-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Brainfish Plans Pricing](https://apis.io/plans/brainfish/brainfish-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Brainfish Rate Limits](https://apis.io/rate-limits/brainfish/brainfish-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.brainfishai.com)
+- [Documentation](https://docs.brainfi.sh)
+- [Getting started](https://help.brainfi.sh)
+- [API reference](https://docs.brainfi.sh/api-reference)
+- [Pricing](https://www.brainfishai.com/pricing)
+- [Sign up](https://app.brainfi.sh)
+- [Support](https://help.brainfi.sh)
+- [Blog](https://www.brainfishai.com/blog)
+- [Compliance](https://trust.brainfi.sh/)
+- [Terms of service](https://www.brainfishai.com/terms)
+- [Privacy policy](https://www.brainfishai.com/privacy-policy)
+- [GitHub](https://github.com/brainfish-ai)
+- [Status](https://status.brainfi.sh)
+
+## API Evangelist rating
+
+**Kin Score 59.1** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 52.5 |
+| Contract governance | 18.2 |
+| Operational transparency | 47.4 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 78.9 |
+
+**Agent readiness 64.1** — agent-native
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 27.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/brainfish/](https://apis.io/providers/brainfish/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Brainfish: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/brainfish/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
